@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Disposable;
-import com.gdx.game.Constants;
 
 public class WorldRenderer implements Disposable {
 
@@ -26,6 +25,7 @@ public class WorldRenderer implements Disposable {
     }
 
     private void renderTestObejcts() {
+        worldController.cameraHelper.applyTo(camera);
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         for(Sprite sprite : worldController.testSprites){
