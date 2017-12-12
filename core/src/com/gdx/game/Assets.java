@@ -15,6 +15,7 @@ public class Assets implements Disposable, AssetErrorListener {
     TextureAtlas atlas;
     AssetCoin coin;
     AssetPlayer player;
+    AssetRock rock;
     AssetLevelDecoration levelDecoration;
 
     private Assets() {
@@ -63,6 +64,14 @@ public class Assets implements Disposable, AssetErrorListener {
 
         public AssetCoin(TextureAtlas atlas) {
             coin = atlas.findRegion("coin");
+        }
+    }
+
+    public class AssetRock {
+        public final AtlasRegion rock;
+
+        public AssetRock(TextureAtlas atlas) {
+            rock = atlas.findRegion("bush");
         }
     }
 
