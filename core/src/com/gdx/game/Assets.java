@@ -5,6 +5,8 @@ import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.utils.Disposable;
@@ -21,22 +23,7 @@ public class Assets implements Disposable, AssetErrorListener {
     private Assets() {
     }
 
-    void init(AssetManager assetManager) {
-        Gdx.app.debug(TAG, "# of assets loaded: " + assetManager.getAssetNames().size);
-
-        for (String a : assetManager.getAssetNames())
-            Gdx.app.debug(TAG, "asset: " + a);
-
-        atlas = new TextureAtlas(Constants.TEXTURE_ATLAS_OBJECTS);//assetManager.get(Constants.TEXTURE_ATLAS_OBJECTS);
-        for (Texture t : atlas.getTextures()) {
-            t.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        }
-
-        coin = new AssetCoin(atlas);
-        player = new AssetPlayer(atlas);
-        rock = new AssetRock(atlas);
-        levelDecoration = new AssetLevelDecoration(atlas);
-    }
+    public AssetFonts fonts;
 
     @Override
     public void dispose() {
@@ -83,6 +70,51 @@ public class Assets implements Disposable, AssetErrorListener {
         public AssetLevelDecoration(TextureAtlas atlas) {
             cloud = atlas.findRegion("cloud");
             bush = atlas.findRegion("bush");
+        }
+    }
+
+    void init(AssetManager assetManager) {
+        Gdx.app.debug(TAG, "# of assets loaded: " + assetManager.getAssetNames().size);
+
+        for (String a : assetManager.getAssetNames())
+            Gdx.app.debug(TAG, "asset: " + a);
+
+        atlas = new TextureAtlas(Constants.TEXTURE_ATLAS_OBJECTS);//assetManager.get(Constants.TEXTURE_ATLAS_OBJECTS);
+        for (Texture t : atlas.getTextures()) {
+            t.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        }
+
+        coin = new AssetCoin(atlas);
+        player = new AssetPlayer(atlas);
+        rock = new AssetRock(atlas);
+        levelDecoration = new AssetLevelDecoration(atlas);
+        fonts = new AssetFonts();
+    }
+
+    public class AssetFonts {
+        public final BitmapFont defaultSmall;
+        public final BitmapFont defaultNormal;
+        public final BitmapFont defaultBig;
+
+        public AssetFonts() {
+            // create three fonts using Libgdx's 15px bitmap font
+            defaultSmall = new BitmapFont(
+                    Gdx.files.internal("fonts/gabriela.fnt"), true);
+            defaultNormal = new BitmapFont(
+                    Gdx.files.internal("fonts/gabriela.fnt"), true);
+            defaultBig = new BitmapFont(
+                    Gdx.files.internal("fonts/gabriela.fnt"), true);
+            // set font sizes
+            defaultSmall.getData().setScale(0.75f);
+            defaultNormal.getData().setScale(1.0f);
+            defaultBig.getData().setScale(2.0f);
+            // enable linear texture filtering for smooth fonts
+            defaultSmall.getRegion().getTexture().setFilter(
+                    TextureFilter.Linear, TextureFilter.Linear);
+            defaultNormal.getRegion().getTexture().setFilter(
+                    TextureFilter.Linear, TextureFilter.Linear);
+            defaultBig.getRegion().getTexture().setFilter(
+                    TextureFilter.Linear, TextureFilter.Linear);
         }
     }
 
