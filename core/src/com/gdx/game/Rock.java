@@ -33,13 +33,6 @@ public class Rock extends AbstractGameObject {
         TextureRegion reg = null;
         float relX = 0;
         float relY = 0;
-        // Draw left edge
-        reg = regEdge;
-        relX -= dimension.x / 4;
-        batch.draw(reg.getTexture(), position.x + relX, position.y + relY, origin.x, origin.y,
-                dimension.x / 4, dimension.y, scale.x, scale.y, rotation, reg.getRegionX(),
-                reg.getRegionY(), reg.getRegionWidth(), reg.getRegionHeight(), false, false);
-        //Draw middle
         relX = 0;
         reg = regMiddle;
         for (int i = 0; i < length; i++) {

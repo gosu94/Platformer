@@ -21,7 +21,7 @@ public class Assets implements Disposable, AssetErrorListener {
     private Assets() {
     }
 
-    public void init(AssetManager assetManager) {
+    void init(AssetManager assetManager) {
         Gdx.app.debug(TAG, "# of assets loaded: " + assetManager.getAssetNames().size);
 
         for (String a : assetManager.getAssetNames())
@@ -34,6 +34,7 @@ public class Assets implements Disposable, AssetErrorListener {
 
         coin = new AssetCoin(atlas);
         player = new AssetPlayer(atlas);
+        rock = new AssetRock(atlas);
         levelDecoration = new AssetLevelDecoration(atlas);
     }
 
