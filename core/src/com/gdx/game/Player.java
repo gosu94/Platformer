@@ -57,6 +57,7 @@ public class Player extends AbstractGameObject {
                 setFeatherPowerup(false);
             }
         }
+        if (position.y < -4) position.y = 7;
     }
 
     @Override

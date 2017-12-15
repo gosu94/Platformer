@@ -7,20 +7,20 @@ import com.badlogic.gdx.math.Vector2;
 
 public abstract class AbstractGameObject {
 
-    public Vector2 position;
-    public Vector2 dimension;
-    public Vector2 origin;
-    public Vector2 scale;
-    public float rotation;
+    Vector2 position;
+    Vector2 dimension;
+    Vector2 origin;
+    Vector2 scale;
+    float rotation;
 
 
-    public Vector2 velocity;
-    public Vector2 terminalVelocity;
-    public Vector2 friction;
-    public Vector2 acceleration;
-    public Rectangle bounds;
+    Vector2 velocity;
+    Vector2 terminalVelocity;
+    Vector2 friction;
+    Vector2 acceleration;
+    Rectangle bounds;
 
-    public AbstractGameObject() {
+    AbstractGameObject() {
         position = new Vector2();
         dimension = new Vector2(1, 1);
         origin = new Vector2();

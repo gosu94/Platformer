@@ -35,7 +35,7 @@ public class Clouds extends AbstractGameObject {
     }
 
     private void init() {
-        dimension.set(3.0f, 1.5f);
+        dimension.set(2.0f, 1.0f);
         int distFac = 5;
         int numClouds = (int) (length / distFac);
         clouds = new Array<Cloud>(2 * numClouds);

@@ -9,7 +9,6 @@ import com.gdx.game.GdxGame;
 public class DesktopLauncher {
 
     private static boolean rebuildAtlas = true;
-    private static boolean drawDebugOutline = true;
 
 	public static void main (String[] arg) {
 
@@ -18,7 +17,7 @@ public class DesktopLauncher {
             settings.maxWidth = 1024;
             settings.maxHeight = 1024;
             settings.duplicatePadding = false;
-            settings.debug = drawDebugOutline;
+            //settings.debug = true;
             TexturePacker.process(settings, "../../desktop/assets-raw/images", "../assets/", "textures");
         }
 

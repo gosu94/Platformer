@@ -59,7 +59,7 @@ public class Assets implements Disposable, AssetErrorListener {
         public final AtlasRegion rock;
 
         public AssetRock(TextureAtlas atlas) {
-            rock = atlas.findRegion("bush");
+            rock = atlas.findRegion("rock");
         }
     }
 

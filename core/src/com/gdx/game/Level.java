@@ -30,7 +30,9 @@ class Level {
     }
 
     Array<Rock> rocks;
+    Array<Coin> coins;
     Clouds clouds;
+    Player player;
 
     Level(String filename) {
         init(filename);
@@ -38,6 +40,9 @@ class Level {
 
     private void init(String filename) {
         rocks = new Array<Rock>();
+        coins = new Array<Coin>();
+        player = null;
+
         Pixmap pixmap = new Pixmap(Gdx.files.internal(filename));
         //scan pixels from top-left to bottom-right
         int lastPixel = -1;
@@ -53,6 +58,7 @@ class Level {
                 if (BLOCK_TYPE.EMPTY.sameColor(currentPixel)) {
                     // do nothing
                 } else if (BLOCK_TYPE.ROCK.sameColor(currentPixel)) {
+
                     if (lastPixel != currentPixel) {
                         obj = new Rock();
                         float heightIncreaseFactor = 0.25f;
@@ -62,11 +68,23 @@ class Level {
                     } else {
                         rocks.get(rocks.size - 1).increaseLength(1);
                     }
+
                 } else if (BLOCK_TYPE.PLAYER_SPAWNPOINT.sameColor(currentPixel)) {
+
+                    obj = new Player();
+                    offsetHeight = -3.0f;
+                    obj.position.set(pixelX, baseHeight * obj.dimension.y + offsetHeight);
+                    player = (Player) obj;
 
                 } else if (BLOCK_TYPE.ITEM_GOLD_COIN.sameColor(currentPixel)) {
 
+                    obj = new Coin();
+                    offsetHeight = -1.5f;
+                    obj.position.set(pixelX, baseHeight * obj.dimension.y + offsetHeight);
+                    coins.add((Coin) obj);
+
                 } else {
+
                     int r = 0xff & (currentPixel >>> 24);
                     int g = 0xff & (currentPixel >>> 16);
                     int b = 0xff & (currentPixel >>> 8);
@@ -87,10 +105,23 @@ class Level {
     }
 
     public void render(SpriteBatch batch) {
-        for (Rock rock : rocks) {
+
+        for (Rock rock : rocks)
             rock.render(batch);
-            clouds.render(batch);
-        }
+        for (Coin coin : coins)
+            coin.render(batch);
+        clouds.render(batch);
+        player.render(batch);
+
+    }
+
+    void update(float deltaTime) {
+        player.update(deltaTime);
+        for (Rock rock : rocks)
+            rock.update(deltaTime);
+        for (Coin coin : coins)
+            coin.update(deltaTime);
+        clouds.update(deltaTime);
     }
 
 
