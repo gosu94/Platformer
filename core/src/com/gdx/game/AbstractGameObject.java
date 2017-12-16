@@ -1,6 +1,8 @@
 package com.gdx.game;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -20,6 +22,9 @@ public abstract class AbstractGameObject {
     Vector2 acceleration;
     Rectangle bounds;
 
+    public float stateTime;
+    public Animation<TextureRegion> animation;
+
     AbstractGameObject() {
         position = new Vector2();
         dimension = new Vector2(1, 1);
@@ -35,11 +40,17 @@ public abstract class AbstractGameObject {
     }
 
     public void update(float deltaTime) {
+        stateTime += deltaTime;
         updateMotionX(deltaTime);
         updateMotionY(deltaTime);
         // Move to new position
         position.x += velocity.x * deltaTime;
         position.y += velocity.y * deltaTime;
+    }
+
+    public void setAnimation(Animation animation) {
+        this.animation = animation;
+        stateTime = 0;
     }
 
     protected void updateMotionX(float deltaTime) {

@@ -21,6 +21,7 @@ public class WorldRenderer implements Disposable {
         batch = new SpriteBatch();
         camera = new OrthographicCamera(Constants.VIEWPORT_WIDTH,Constants.VIEWPORT_HEIGHT);
         camera.position.set(0,0,0);
+
         camera.update();
 
         cameraGUI = new OrthographicCamera(Constants.VIEWPORT_GUI_WIDTH,
@@ -49,6 +50,17 @@ public class WorldRenderer implements Disposable {
         renderGuiScore(batch);
         renderGuiFpsCounter(batch);
         batch.end();
+    }
+
+    private void renderGuiGameOverMessage(SpriteBatch batch) {
+        float x = cameraGUI.viewportWidth / 2;
+        float y = cameraGUI.viewportHeight / 2;
+        if (worldController.lives == 0) {
+            BitmapFont fontGameOver = Assets.instance.fonts.defaultBig;
+            fontGameOver.setColor(1, 0.75f, 0.25f, 1);
+            fontGameOver.draw(batch, "GAME OVER", x, y);
+            fontGameOver.setColor(1, 1, 1, 1);
+        }
     }
 
     private void renderGuiScore(SpriteBatch batch) {

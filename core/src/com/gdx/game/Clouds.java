@@ -55,7 +55,7 @@ public class Clouds extends AbstractGameObject {
         Vector2 pos = new Vector2();
         pos.x = length + 10;
         // position after end of level
-        pos.y += 1.75;
+        pos.y += 5.75;
         // base position
         pos.y += MathUtils.random(0.0f, 0.2f) * (MathUtils.randomBoolean() ? 1 : -1);
         // random additional position

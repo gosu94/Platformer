@@ -10,36 +10,28 @@ public class Player extends AbstractGameObject {
     private final float JUMP_TIME_MIN = 0.1f;
     private final float JUMP_TIME_OFFSET_FLYING =
             JUMP_TIME_MAX - 0.018f;
-    public VIEW_DIRECTION viewDirection;
-    public float timeJumping;
+    private final float SPEED = 4.0f;
+    private final float JUMP_SPEED = 6.0f;
+    private VIEW_DIRECTION viewDirection;
+    private float timeJumping;
     public JUMP_STATE jumpState;
-    public boolean hasFeatherPowerup;
-    public float timeLeftFeatherPowerup;
-    private TextureRegion regHead;
 
-    public Player() {
+    Player() {
         init();
     }
 
-    public void init() {
-        dimension.set(1, 1);
-        regHead = Assets.instance.player.player;
-        // Center image on game object
+    void init() {
+        dimension.set(1f, 1f);
         origin.set(dimension.x / 2, dimension.y / 2);
-        // Bounding box for collision detection
         bounds.set(0, 0, dimension.x, dimension.y);
-        // Set physics values
-        terminalVelocity.set(3.0f, 4.0f);
+        terminalVelocity.set(SPEED, JUMP_SPEED);
         friction.set(12.0f, 0.0f);
-        acceleration.set(0.0f, -25.0f);
-        // View direction
+        acceleration.set(0f, -25.0f);
         viewDirection = VIEW_DIRECTION.RIGHT;
-        // Jump state
         jumpState = JUMP_STATE.FALLING;
         timeJumping = 0;
-        // Power-ups
-        hasFeatherPowerup = false;
-        timeLeftFeatherPowerup = 0;
+        setAnimation(Assets.instance.player.animation);
+        stateTime = 0;
     }
 
     @Override
@@ -49,14 +41,7 @@ public class Player extends AbstractGameObject {
             viewDirection = velocity.x < 0 ? VIEW_DIRECTION.LEFT :
                     VIEW_DIRECTION.RIGHT;
         }
-        if (timeLeftFeatherPowerup > 0) {
-            timeLeftFeatherPowerup -= deltaTime;
-            if (timeLeftFeatherPowerup < 0) {
-                // disable power-up
-                timeLeftFeatherPowerup = 0;
-                setFeatherPowerup(false);
-            }
-        }
+
         if (position.y < -4) position.y = 7;
     }
 
@@ -81,20 +66,22 @@ public class Player extends AbstractGameObject {
                     // Still jumping
                     velocity.y = terminalVelocity.y;
                 }
+                // Jump to minimal height if jump key was pressed too short
+                if (timeJumping > 0 && timeJumping <= JUMP_TIME_MIN) {
+                    // Still jumping
+                    velocity.y = terminalVelocity.y;
+                }
                 break;
             case FALLING:
                 break;
             case JUMP_FALLING:
                 // Add delta times to track jump time
                 timeJumping += deltaTime;
-                // Jump to minimal height if jump key was pressed too short
-                if (timeJumping > 0 && timeJumping <= JUMP_TIME_MIN) {
-                    // Still jumping
-                    velocity.y = terminalVelocity.y;
-                }
+
+
         }
-        if (jumpState != JUMP_STATE.GROUNDED)
-            super.updateMotionY(deltaTime);
+
+        super.updateMotionY(deltaTime);
 
     }
 
@@ -102,11 +89,9 @@ public class Player extends AbstractGameObject {
     public void render(SpriteBatch batch) {
         TextureRegion reg = null;
         // Set special color when game object has a feather power-up
-        if (hasFeatherPowerup) {
-            batch.setColor(1.0f, 0.8f, 0.0f, 1.0f);
-        }
         // Draw image
-        reg = regHead;
+        reg = animation.getKeyFrame(stateTime, true);
+
         batch.draw(reg.getTexture(), position.x, position.y, origin.x,
                 origin.y, dimension.x, dimension.y, scale.x, scale.y, rotation,
                 reg.getRegionX(), reg.getRegionY(), reg.getRegionWidth(),
@@ -131,23 +116,8 @@ public class Player extends AbstractGameObject {
                 break;
             case FALLING:// Falling down
             case JUMP_FALLING: // Falling down after jump
-                if (jumpKeyPressed && hasFeatherPowerup) {
-                    timeJumping = JUMP_TIME_OFFSET_FLYING;
-                    jumpState = JUMP_STATE.JUMP_RISING;
-                }
                 break;
         }
-    }
-
-    public void setFeatherPowerup(boolean pickedUp) {
-        hasFeatherPowerup = pickedUp;
-        if (pickedUp) {
-            timeLeftFeatherPowerup = 30;
-        }
-    }
-
-    public boolean hasFeatherPowerup() {
-        return hasFeatherPowerup && timeLeftFeatherPowerup > 0;
     }
 
     public enum VIEW_DIRECTION {LEFT, RIGHT}

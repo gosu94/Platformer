@@ -15,13 +15,13 @@ public class CameraHelper {
 
     CameraHelper() {
         position = new Vector2();
-        zoom = 1.4f;
+        zoom = 1.0f;
     }
 
     void update(float deltaTime) {
         if (!hasTarget()) return;
         position.x = target.position.x + target.origin.x;
-        position.y = target.position.y + target.origin.y;
+        //position.y = target.position.y + target.origin.y;
     }
 
     void setPosition(float x, float y) {

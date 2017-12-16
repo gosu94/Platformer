@@ -29,6 +29,7 @@ public class WorldController extends InputAdapter {
         score = 0;
         level = new Level(Constants.LEVEL_01);
         cameraHelper.setTarget(level.player);
+        cameraHelper.setPosition(0, 3);
     }
 
     void update(float deltaTime) {
@@ -61,6 +62,8 @@ public class WorldController extends InputAdapter {
             case JUMP_FALLING:
                 player.position.y = rock.position.y + player.bounds.height + player.origin.y;
                 player.jumpState = Player.JUMP_STATE.GROUNDED;
+                Gdx.app.debug(TAG, "wooot");
+
                 break;
             case JUMP_RISING:
                 player.position.y = rock.position.y + player.bounds.height + player.origin.y;
@@ -115,14 +118,10 @@ public class WorldController extends InputAdapter {
                     level.player.velocity.x = -level.player.terminalVelocity.x;
                 } else if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
                     level.player.velocity.x = level.player.terminalVelocity.x;
-                } else {
-                    if (Gdx.app.getType() != ApplicationType.Desktop) {
-                        level.player.velocity.x = level.player.terminalVelocity.x;
-                    }
                 }
 
                 // Bunny Jump
-                if (Gdx.input.isTouched() || Gdx.input.isKeyPressed(Keys.SPACE)) {
+                if (Gdx.input.isKeyPressed(Keys.SPACE)) {
                     level.player.setJumping(true);
                 } else {
                     level.player.setJumping(false);

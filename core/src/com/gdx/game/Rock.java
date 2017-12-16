@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Rock extends AbstractGameObject {
 
-    private TextureRegion regEdge;
     private TextureRegion regMiddle;
     private int length;
 
@@ -14,7 +13,7 @@ public class Rock extends AbstractGameObject {
     }
 
     private void init() {
-        dimension.set(1, 1.5f);
+        dimension.set(1.5f, 1.5f);
         regMiddle = Assets.instance.rock.rock;
         // Start length of this rock
         setLength(1);

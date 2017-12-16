@@ -6,9 +6,11 @@ import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 
 public class Assets implements Disposable, AssetErrorListener {
@@ -41,9 +43,17 @@ public class Assets implements Disposable, AssetErrorListener {
 
     public class AssetPlayer {
         public final AtlasRegion player;
+        public final Animation animation;
+
+        Array<AtlasRegion> regions = null;
+        AtlasRegion region = null;
+
+
 
         public AssetPlayer(TextureAtlas atlas) {
             player = atlas.findRegion("player");
+            regions = atlas.findRegions("anim_player");
+            animation = new Animation(1.0f / 10.0f, regions, Animation.PlayMode.LOOP_PINGPONG);
         }
     }
 
@@ -96,7 +106,7 @@ public class Assets implements Disposable, AssetErrorListener {
         public final BitmapFont defaultNormal;
         public final BitmapFont defaultBig;
 
-        public AssetFonts() {
+        AssetFonts() {
             // create three fonts using Libgdx's 15px bitmap font
             defaultSmall = new BitmapFont(
                     Gdx.files.internal("fonts/gabriela.fnt"), true);
