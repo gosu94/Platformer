@@ -8,39 +8,15 @@ import com.badlogic.gdx.utils.Array;
 class Level {
     static final String TAG = Level.class.getName();
 
-    public enum BLOCK_TYPE {
-        EMPTY(255, 255, 255),
-        ROCK(0, 255, 0),    //green
-        PLAYER_SPAWNPOINT(0, 0, 0),
-        ITEM_GOLD_COIN(255, 255, 0);
-
-        private int color;
-
-        BLOCK_TYPE(int r, int g, int b) {
-            color = r << 24 | g << 16 | b << 8 | 0xff;
-        }
-
-        public boolean sameColor(int color) {
-            return this.color == color;
-        }
-
-        public int getColor() {
-            return color;
-        }
-    }
+    Array<Enemy> enemies;
 
     Array<Rock> rocks;
     Array<Coin> coins;
-    Clouds clouds;
-    Player player;
-
-    Level(String filename) {
-        init(filename);
-    }
 
     private void init(String filename) {
         rocks = new Array<Rock>();
         coins = new Array<Coin>();
+        enemies = new Array<Enemy>();
         player = null;
 
         Pixmap pixmap = new Pixmap(Gdx.files.internal(filename));
@@ -83,6 +59,11 @@ class Level {
                     obj.position.set(pixelX, baseHeight * obj.dimension.y + offsetHeight);
                     coins.add((Coin) obj);
 
+                } else if (BLOCK_TYPE.ENEMY.sameColor(currentPixel)) {
+                    obj = new Enemy();
+                    offsetHeight = -1.5f;
+                    obj.position.set(pixelX, baseHeight * obj.dimension.y + offsetHeight);
+                    enemies.add((Enemy) obj);
                 } else {
 
                     int r = 0xff & (currentPixel >>> 24);
@@ -104,12 +85,22 @@ class Level {
         Gdx.app.debug(TAG, "level '" + filename + "' loaded");
     }
 
+    Clouds clouds;
+    Player player;
+
+
+    Level(String filename) {
+        init(filename);
+    }
+
     public void render(SpriteBatch batch) {
 
         for (Rock rock : rocks)
             rock.render(batch);
         for (Coin coin : coins)
             coin.render(batch);
+        for (Enemy enemy : enemies)
+            enemy.render(batch);
         clouds.render(batch);
         player.render(batch);
 
@@ -117,11 +108,37 @@ class Level {
 
     void update(float deltaTime) {
         player.update(deltaTime);
+
         for (Rock rock : rocks)
             rock.update(deltaTime);
         for (Coin coin : coins)
             coin.update(deltaTime);
+        for (Enemy enemy : enemies)
+            enemy.update(deltaTime);
+
         clouds.update(deltaTime);
+    }
+
+    public enum BLOCK_TYPE {
+        EMPTY(255, 255, 255),
+        ROCK(0, 255, 0),
+        PLAYER_SPAWNPOINT(0, 0, 0),
+        ITEM_GOLD_COIN(255, 255, 0),
+        ENEMY(128, 128, 128);
+
+        private int color;
+
+        BLOCK_TYPE(int r, int g, int b) {
+            color = r << 24 | g << 16 | b << 8 | 0xff;
+        }
+
+        public boolean sameColor(int color) {
+            return this.color == color;
+        }
+
+        public int getColor() {
+            return color;
+        }
     }
 
 

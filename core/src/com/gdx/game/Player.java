@@ -24,7 +24,7 @@ public class Player extends AbstractGameObject {
         dimension.set(1f, 1f);
         origin.set(dimension.x / 2, dimension.y / 2);
         bounds.set(0, 0, dimension.x, dimension.y);
-        terminalVelocity.set(SPEED, JUMP_SPEED);
+        maximalSpeed.set(SPEED, JUMP_SPEED);
         friction.set(12.0f, 0.0f);
         acceleration.set(0f, -25.0f);
         viewDirection = VIEW_DIRECTION.RIGHT;
@@ -64,12 +64,12 @@ public class Player extends AbstractGameObject {
                 // Jump time left?
                 if (timeJumping <= JUMP_TIME_MAX) {
                     // Still jumping
-                    velocity.y = terminalVelocity.y;
+                    velocity.y = maximalSpeed.y;
                 }
                 // Jump to minimal height if jump key was pressed too short
                 if (timeJumping > 0 && timeJumping <= JUMP_TIME_MIN) {
                     // Still jumping
-                    velocity.y = terminalVelocity.y;
+                    velocity.y = maximalSpeed.y;
                 }
                 break;
             case FALLING:

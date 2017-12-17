@@ -36,7 +36,8 @@ public class WorldController extends InputAdapter {
         handleDebugInput(deltaTime);
         handleInputGame(deltaTime);
         level.update(deltaTime);
-        testCollisions();
+        testCollisionsForPlayer();
+        testCollisionForEnemies();
         cameraHelper.update(deltaTime);
     }
 
@@ -62,13 +63,28 @@ public class WorldController extends InputAdapter {
             case JUMP_FALLING:
                 player.position.y = rock.position.y + player.bounds.height + player.origin.y;
                 player.jumpState = Player.JUMP_STATE.GROUNDED;
-                Gdx.app.debug(TAG, "wooot");
-
                 break;
             case JUMP_RISING:
                 player.position.y = rock.position.y + player.bounds.height + player.origin.y;
                 break;
         }
+    }
+
+    private void onCollisionEnemyWithRock(Enemy enemy, Rock rock) {
+        float heightDifference = Math.abs(enemy.position.y - (rock.position.y + rock.bounds.height));
+        if (heightDifference > 0.25f) {
+            boolean hitRightEdge = enemy.position.x > (rock.position.x + rock.bounds.width / 2.0f);
+            if (hitRightEdge) {
+                enemy.position.x = rock.position.x + rock.bounds.width;
+                enemy.changeDirection();
+            } else {
+                enemy.position.x = rock.position.x - enemy.bounds.width;
+                enemy.changeDirection();
+            }
+            return;
+        }
+
+        enemy.position.y = rock.position.y + enemy.bounds.height + enemy.origin.y;
     }
 
     private void onCollisionBunnyWithGoldCoin(Coin coin) {
@@ -77,7 +93,18 @@ public class WorldController extends InputAdapter {
         Gdx.app.log(TAG, "Gold coin collected");
     }
 
-    private void testCollisions() {
+    private void testCollisionForEnemies() {
+        for (Enemy enemy : level.enemies) {
+            r1.set(enemy.position.x, enemy.position.y, enemy.bounds.width, enemy.bounds.height);
+            for (Rock rock : level.rocks) {
+                r2.set(rock.position.x, rock.position.y, rock.bounds.width, rock.bounds.height);
+                if (!r1.overlaps(r2)) continue;
+                onCollisionEnemyWithRock(enemy, rock);
+            }
+        }
+    }
+
+    private void testCollisionsForPlayer() {
         r1.set(level.player.position.x, level.player.position.y, level.player.bounds.width, level.player.bounds.height);
         for (Rock rock : level.rocks) {
             r2.set(rock.position.x, rock.position.y, rock.bounds.width, rock.bounds.height);
@@ -115,9 +142,9 @@ public class WorldController extends InputAdapter {
             if (cameraHelper.hasTarget(level.player)) {
                 //movement
                 if (Gdx.input.isKeyPressed(Keys.LEFT)) {
-                    level.player.velocity.x = -level.player.terminalVelocity.x;
+                    level.player.velocity.x = -level.player.maximalSpeed.x;
                 } else if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
-                    level.player.velocity.x = level.player.terminalVelocity.x;
+                    level.player.velocity.x = level.player.maximalSpeed.x;
                 }
 
                 // Bunny Jump

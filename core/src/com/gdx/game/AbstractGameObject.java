@@ -17,7 +17,7 @@ public abstract class AbstractGameObject {
 
 
     Vector2 velocity;
-    Vector2 terminalVelocity;
+    Vector2 maximalSpeed;
     Vector2 friction;
     Vector2 acceleration;
     Rectangle bounds;
@@ -33,7 +33,7 @@ public abstract class AbstractGameObject {
         rotation = 0;
 
         velocity = new Vector2();
-        terminalVelocity = new Vector2(1, 1);
+        maximalSpeed = new Vector2(1, 1);
         friction = new Vector2();
         acceleration = new Vector2();
         bounds = new Rectangle();
@@ -69,7 +69,7 @@ public abstract class AbstractGameObject {
         // Make sure the object's velocity does not exceed the
         // positive or negative terminal velocity
         velocity.x = MathUtils.clamp(velocity.x,
-                -terminalVelocity.x, terminalVelocity.x);
+                -maximalSpeed.x, maximalSpeed.x);
     }
 
     protected void updateMotionY(float deltaTime) {
@@ -88,7 +88,7 @@ public abstract class AbstractGameObject {
         // Make sure the object's velocity does not exceed the
         // positive or negative terminal velocity
         velocity.y = MathUtils.clamp(velocity.y, -
-                terminalVelocity.y, terminalVelocity.y);
+                maximalSpeed.y, maximalSpeed.y);
     }
 
 
