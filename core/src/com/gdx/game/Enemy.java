@@ -6,8 +6,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class Enemy extends AbstractGameObject {
 
     private static final String TAG = WorldController.class.getName();
-    int SPEED_X = 8;
-    int SPEED_Y = -25;
+    private int speedX = 8;
+    private int speedY = -25;
     private TextureRegion enemySprite;
 
     Enemy() {
@@ -19,16 +19,16 @@ public class Enemy extends AbstractGameObject {
         origin.set(dimension.x / 2, dimension.y / 2);
         bounds.set(0, 0, dimension.x, dimension.y);
         maximalSpeed.set(4.0f, 8.0f);
-        acceleration.set(SPEED_X, SPEED_Y);
+        acceleration.set(speedX, speedY);
         enemySprite = Assets.instance.player.player;
 
     }
 
-    public void changeDirection() {
-        SPEED_X = -SPEED_X;
+    void changeDirection() {
+        speedX = -speedX;
         //zeby sie odbil
-        velocity.x = SPEED_X / 2;
-        acceleration.set(SPEED_X, SPEED_Y);
+        velocity.x = speedX / 2;
+        acceleration.set(speedX, speedY);
     }
 
     @Override
@@ -44,5 +44,21 @@ public class Enemy extends AbstractGameObject {
                 rotation, reg.getRegionX(), reg.getRegionY(),
                 reg.getRegionWidth(), reg.getRegionHeight(), false, false);
 
+    }
+
+    int getSpeedX() {
+        return speedX;
+    }
+
+    void setSpeedX(int speedX) {
+        this.speedX = speedX;
+    }
+
+    int getSpeedY() {
+        return speedY;
+    }
+
+    void setSpeedY(int speedY) {
+        this.speedY = speedY;
     }
 }
