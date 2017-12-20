@@ -60,7 +60,7 @@ class Level {
                     coins.add((Coin) obj);
 
                 } else if (BLOCK_TYPE.ENEMY.sameColor(currentPixel)) {
-                    obj = new EnemyBig(new Enemy());
+                    obj = new EnemyBasic();
                     offsetHeight = -1.5f;
                     obj.position.set(pixelX, baseHeight * obj.dimension.y + offsetHeight);
                     enemies.add((Enemy) obj);
