@@ -2,7 +2,9 @@ package com.gdx.game;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-abstract class Enemy extends AbstractGameObject {
+import java.io.Serializable;
+
+abstract class Enemy extends AbstractGameObject implements Serializable {
 
     private static final String TAG = WorldController.class.getName();
     int speedX = 8;

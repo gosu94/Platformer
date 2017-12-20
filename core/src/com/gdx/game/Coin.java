@@ -3,7 +3,9 @@ package com.gdx.game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class Coin extends AbstractGameObject {
+import java.io.Serializable;
+
+public class Coin extends AbstractGameObject implements Serializable {
 
     public boolean collected;
     private TextureRegion regGoldCoin;

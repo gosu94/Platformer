@@ -9,7 +9,6 @@ class Level {
     static final String TAG = Level.class.getName();
 
     Array<Enemy> enemies;
-
     Array<Rock> rocks;
     Array<Coin> coins;
 

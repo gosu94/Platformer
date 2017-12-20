@@ -3,7 +3,9 @@ package com.gdx.game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class Player extends AbstractGameObject {
+import java.io.Serializable;
+
+public class Player extends AbstractGameObject implements Serializable {
 
     public static final String TAG = Player.class.getName();
     private final float JUMP_TIME_MAX = 0.3f;

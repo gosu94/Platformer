@@ -131,8 +131,11 @@ public class WorldController extends InputAdapter {
             cameraHelper.setTarget(cameraHelper.hasTarget() ? null : level.player);
             Gdx.app.debug(TAG, "Camera follow enabled: " + cameraHelper.hasTarget());
         }
-        if (keycode == Keys.E) {
-            Gdx.app.debug(TAG, "Position y: " + level.player.position.y);
+        if (keycode == Keys.S) {
+            Memento.save(level.player, level.enemies, level.rocks, level.coins);
+        }
+        if (keycode == Keys.L) {
+            Memento.load();
         }
         return false;
     }
