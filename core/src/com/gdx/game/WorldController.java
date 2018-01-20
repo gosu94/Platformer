@@ -1,6 +1,7 @@
 package com.gdx.game;
 
 import com.badlogic.gdx.Application.ApplicationType;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
@@ -13,8 +14,11 @@ public class WorldController extends InputAdapter {
     Level level;
     int lives;
     int score;
+    private Game game;
 
-    WorldController() {
+
+    WorldController(Game game) {
+        this.game = game;
         init();
     }
 
@@ -39,6 +43,10 @@ public class WorldController extends InputAdapter {
         testCollisionsForPlayer();
         testCollisionForEnemies();
         cameraHelper.update(deltaTime);
+    }
+
+    private void backToMenu() {
+        game.setScreen(new MenuScreen(game));
     }
 
     private Rectangle r1 = new Rectangle();
@@ -136,6 +144,8 @@ public class WorldController extends InputAdapter {
         }
         if (keycode == Keys.L) {
             Memento.load();
+        } else if (keycode == Keys.ESCAPE) {
+            backToMenu();
         }
         return false;
     }

@@ -19,6 +19,7 @@ public class DesktopLauncher {
             settings.duplicatePadding = false;
             //settings.debug = true;
             TexturePacker.process(settings, "../../desktop/assets-raw/images", "../assets/", "textures");
+
         }
 
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
