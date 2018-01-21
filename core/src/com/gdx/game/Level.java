@@ -8,9 +8,10 @@ import com.badlogic.gdx.utils.Array;
 class Level {
     static final String TAG = Level.class.getName();
 
-    Array<Enemy> enemies;
-    Array<Rock> rocks;
-    Array<Coin> coins;
+    static Array<Enemy> enemies;
+    static Array<Rock> rocks;
+    static Array<Coin> coins;
+    static Player player;
 
     private void init(String filename) {
         rocks = new Array<Rock>();
@@ -85,7 +86,6 @@ class Level {
     }
 
     Clouds clouds;
-    Player player;
 
 
     Level(String filename) {

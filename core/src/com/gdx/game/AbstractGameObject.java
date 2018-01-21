@@ -94,4 +94,8 @@ public abstract class AbstractGameObject {
 
     public abstract void render(SpriteBatch batch);
 
+    public void setPosition(Vector2 position) {
+        this.position = position;
+    }
+
 }

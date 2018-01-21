@@ -7,13 +7,18 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.Rectangle;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class WorldController extends InputAdapter {
     private static final String TAG = WorldController.class.getName();
     CameraHelper cameraHelper;
     Level level;
+    static List<Memento> mementos = new ArrayList<Memento>();
+    static int score;
     int lives;
-    int score;
+    State state;
     private Game game;
 
 
@@ -32,7 +37,7 @@ public class WorldController extends InputAdapter {
     void initLevel() {
         score = 0;
         level = new Level(Constants.LEVEL_01);
-        cameraHelper.setTarget(level.player);
+        cameraHelper.setTarget(Level.player);
         cameraHelper.setPosition(0, 3);
     }
 
@@ -53,7 +58,7 @@ public class WorldController extends InputAdapter {
     private Rectangle r2 = new Rectangle();
 
     private void onCollisionBunnyHeadWithRock(Rock rock) {
-        Player player = level.player;
+        Player player = Level.player;
         float heightDifference = Math.abs(player.position.y - (rock.position.y + rock.bounds.height));
         if (heightDifference > 0.25f) {
             boolean hitRightEdge = player.position.x > (rock.position.x + rock.bounds.width / 2.0f);
@@ -102,9 +107,9 @@ public class WorldController extends InputAdapter {
     }
 
     private void testCollisionForEnemies() {
-        for (Enemy enemy : level.enemies) {
+        for (Enemy enemy : Level.enemies) {
             r1.set(enemy.position.x, enemy.position.y, enemy.bounds.width, enemy.bounds.height);
-            for (Rock rock : level.rocks) {
+            for (Rock rock : Level.rocks) {
                 r2.set(rock.position.x, rock.position.y, rock.bounds.width, rock.bounds.height);
                 if (!r1.overlaps(r2)) continue;
                 onCollisionEnemyWithRock(enemy, rock);
@@ -113,14 +118,14 @@ public class WorldController extends InputAdapter {
     }
 
     private void testCollisionsForPlayer() {
-        r1.set(level.player.position.x, level.player.position.y, level.player.bounds.width, level.player.bounds.height);
-        for (Rock rock : level.rocks) {
+        r1.set(Level.player.position.x, Level.player.position.y, Level.player.bounds.width, Level.player.bounds.height);
+        for (Rock rock : Level.rocks) {
             r2.set(rock.position.x, rock.position.y, rock.bounds.width, rock.bounds.height);
             if (!r1.overlaps(r2)) continue;
             onCollisionBunnyHeadWithRock(rock);
         }
 
-        for (Coin coin : level.coins) {
+        for (Coin coin : Level.coins) {
             if (coin.collected) continue;
             r2.set(coin.position.x, coin.position.y, coin.bounds.width, coin.bounds.height);
             if (!r1.overlaps(r2)) continue;
@@ -136,14 +141,18 @@ public class WorldController extends InputAdapter {
             init();
             Gdx.app.debug(TAG, "World has been resetted");
         } else if (keycode == Keys.ENTER) {
-            cameraHelper.setTarget(cameraHelper.hasTarget() ? null : level.player);
+            cameraHelper.setTarget(cameraHelper.hasTarget() ? null : Level.player);
             Gdx.app.debug(TAG, "Camera follow enabled: " + cameraHelper.hasTarget());
         }
         if (keycode == Keys.S) {
-            Memento.save(level.player, level.enemies, level.rocks, level.coins);
+            state = new State(Level.player, Level.enemies, Level.rocks, Level.coins, score);
+            if (mementos != null)
+                mementos.add(Originator.saveToMemento(state, "savedGame" + Integer.toString(mementos.size() + 1)));
+            else
+                mementos.add(Originator.saveToMemento(state, "savedGame0"));
         }
         if (keycode == Keys.L) {
-            Memento.load();
+            Originator.loadFromMemento(mementos.get(mementos.size() - 1));
         } else if (keycode == Keys.ESCAPE) {
             backToMenu();
         }
@@ -151,20 +160,20 @@ public class WorldController extends InputAdapter {
     }
 
     private void handleInputGame(float deltaTime) {
-        if (cameraHelper.hasTarget(level.player)) {
-            if (cameraHelper.hasTarget(level.player)) {
+        if (cameraHelper.hasTarget(Level.player)) {
+            if (cameraHelper.hasTarget(Level.player)) {
                 //movement
                 if (Gdx.input.isKeyPressed(Keys.LEFT)) {
-                    level.player.velocity.x = -level.player.maximalSpeed.x;
+                    Level.player.velocity.x = -Level.player.maximalSpeed.x;
                 } else if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
-                    level.player.velocity.x = level.player.maximalSpeed.x;
+                    Level.player.velocity.x = Level.player.maximalSpeed.x;
                 }
 
                 // Bunny Jump
                 if (Gdx.input.isKeyPressed(Keys.SPACE)) {
-                    level.player.setJumping(true);
+                    Level.player.setJumping(true);
                 } else {
-                    level.player.setJumping(false);
+                    Level.player.setJumping(false);
                 }
             }
         }
@@ -173,7 +182,7 @@ public class WorldController extends InputAdapter {
     private void handleDebugInput(float deltaTime) {
         if (Gdx.app.getType() != ApplicationType.Desktop) return;
 
-        if (!cameraHelper.hasTarget(level.player)) {
+        if (!cameraHelper.hasTarget(Level.player)) {
             float camMoveSpeed = 5 * deltaTime;
             float camMoveSpeedAccelerationFactor = 5;
             if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)) camMoveSpeed *= camMoveSpeedAccelerationFactor;
