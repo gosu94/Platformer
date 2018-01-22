@@ -12,6 +12,8 @@ class Level {
     static Array<Rock> rocks;
     static Array<Coin> coins;
     static Player player;
+    static float playerBaseX;
+    static float playerBaseY;
 
     private void init(String filename) {
         rocks = new Array<Rock>();
@@ -50,6 +52,8 @@ class Level {
                     obj = new Player();
                     offsetHeight = -3.0f;
                     obj.position.set(pixelX, baseHeight * obj.dimension.y + offsetHeight);
+                    playerBaseX = pixelX;
+                    playerBaseY = baseHeight * obj.dimension.y + offsetHeight;
                     player = (Player) obj;
 
                 } else if (BLOCK_TYPE.ITEM_GOLD_COIN.sameColor(currentPixel)) {

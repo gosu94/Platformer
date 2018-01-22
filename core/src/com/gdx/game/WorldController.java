@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +58,7 @@ public class WorldController extends InputAdapter {
     private Rectangle r1 = new Rectangle();
     private Rectangle r2 = new Rectangle();
 
-    private void onCollisionBunnyHeadWithRock(Rock rock) {
+    private void onCollisionPlayerWithRock(Rock rock) {
         Player player = Level.player;
         float heightDifference = Math.abs(player.position.y - (rock.position.y + rock.bounds.height));
         if (heightDifference > 0.25f) {
@@ -74,11 +75,11 @@ public class WorldController extends InputAdapter {
                 break;
             case FALLING:
             case JUMP_FALLING:
-                player.position.y = rock.position.y + player.bounds.height + player.origin.y;
+                player.position.y = rock.position.y + player.bounds.height;
                 player.jumpState = Player.JUMP_STATE.GROUNDED;
                 break;
             case JUMP_RISING:
-                player.position.y = rock.position.y + player.bounds.height + player.origin.y;
+                player.position.y = rock.position.y + player.bounds.height;
                 break;
         }
     }
@@ -97,13 +98,18 @@ public class WorldController extends InputAdapter {
             return;
         }
 
-        enemy.position.y = rock.position.y + enemy.bounds.height + enemy.origin.y;
+        enemy.position.y = rock.position.y + enemy.bounds.height;
     }
 
-    private void onCollisionBunnyWithGoldCoin(Coin coin) {
+    private void onCollisionPlayerWithGoldCoin(Coin coin) {
         coin.collected = true;
         score += coin.getScore();
         Gdx.app.log(TAG, "Gold coin collected");
+    }
+
+    private void onCollisionPlayerWithEnemy(Player player) {
+        player.setPosition(new Vector2(Level.playerBaseX, Level.playerBaseY));
+        Gdx.app.log(TAG, "Life lost");
     }
 
     private void testCollisionForEnemies() {
@@ -119,17 +125,24 @@ public class WorldController extends InputAdapter {
 
     private void testCollisionsForPlayer() {
         r1.set(Level.player.position.x, Level.player.position.y, Level.player.bounds.width, Level.player.bounds.height);
+
         for (Rock rock : Level.rocks) {
             r2.set(rock.position.x, rock.position.y, rock.bounds.width, rock.bounds.height);
             if (!r1.overlaps(r2)) continue;
-            onCollisionBunnyHeadWithRock(rock);
+            onCollisionPlayerWithRock(rock);
+        }
+
+        for (Enemy enemy : Level.enemies) {
+            r2.set(enemy.position.x, enemy.position.y, enemy.bounds.width, enemy.bounds.height);
+            if (!r1.overlaps(r2)) continue;
+            onCollisionPlayerWithEnemy(Level.player);
         }
 
         for (Coin coin : Level.coins) {
             if (coin.collected) continue;
             r2.set(coin.position.x, coin.position.y, coin.bounds.width, coin.bounds.height);
             if (!r1.overlaps(r2)) continue;
-            onCollisionBunnyWithGoldCoin(coin);
+            onCollisionPlayerWithGoldCoin(coin);
             break;
         }
 

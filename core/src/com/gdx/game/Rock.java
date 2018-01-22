@@ -13,7 +13,7 @@ public class Rock extends AbstractGameObject {
     }
 
     private void init() {
-        dimension.set(1.5f, 1.5f);
+        dimension.set(1.0f, 1.0f);
         regMiddle = Assets.instance.rock.rock;
         // Start length of this rock
         setLength(1);

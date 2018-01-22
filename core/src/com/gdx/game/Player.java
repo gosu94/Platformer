@@ -13,7 +13,7 @@ public class Player extends AbstractGameObject implements Serializable {
     private final float JUMP_TIME_OFFSET_FLYING =
             JUMP_TIME_MAX - 0.018f;
     private final float SPEED = 4.0f;
-    private final float JUMP_SPEED = 6.0f;
+    private final float JUMP_SPEED = 9.0f;
     private VIEW_DIRECTION viewDirection;
     private float timeJumping;
     public JUMP_STATE jumpState;
