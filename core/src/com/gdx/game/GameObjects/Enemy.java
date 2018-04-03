@@ -1,14 +1,16 @@
-package com.gdx.game;
+package com.gdx.game.GameObjects;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.gdx.game.WorldController;
 
 import java.io.Serializable;
 
-abstract class Enemy extends AbstractGameObject implements Serializable {
+abstract public class Enemy extends AbstractGameObject implements Serializable {
 
     private static final String TAG = WorldController.class.getName();
     int speedX = 8;
     int speedY = -25;
+    int maxSpeedX = 4;
     TextureRegion enemySprite;
 
 
@@ -16,9 +18,14 @@ abstract class Enemy extends AbstractGameObject implements Serializable {
     }
 
     void init() {
+
     }
 
-    void changeDirection() {
+    public void changeDirection() {
+        speedX = -speedX;
+        //zeby sie odbil
+        velocity.x = speedX / 2;
+        acceleration.set(speedX, speedY);
     }
 
     int getSpeedX() {
@@ -35,5 +42,13 @@ abstract class Enemy extends AbstractGameObject implements Serializable {
 
     void setSpeedY(int speedY) {
         this.speedY = speedY;
+    }
+
+    public int getMaxSpeedX() {
+        return maxSpeedX;
+    }
+
+    public void setMaxSpeedX(int maxSpeedX) {
+        this.maxSpeedX = maxSpeedX;
     }
 }

@@ -13,7 +13,7 @@ public class WorldRenderer implements Disposable {
     private WorldController worldController;
     private OrthographicCamera cameraGUI;
 
-    WorldRenderer(WorldController worldController) {
+    public WorldRenderer(WorldController worldController) {
         this.worldController = worldController;
         init();
     }
@@ -37,7 +37,7 @@ public class WorldRenderer implements Disposable {
     }
 
     private void renderWorld(SpriteBatch batch) {
-        worldController.cameraHelper.applyTo(camera);
+        WorldController.cameraHandler.applyTo(camera);
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         worldController.level.render(batch);
@@ -69,7 +69,7 @@ public class WorldRenderer implements Disposable {
         batch.draw(Assets.instance.coin.goldCoin,
                 x, y, 50, 50, 100, 100, 0.35f, -0.35f, 0);
         Assets.instance.fonts.defaultNormal.draw(batch,
-                "" + worldController.score,
+                "" + WorldController.score,
                 x + 75, y + 37);
     }
 

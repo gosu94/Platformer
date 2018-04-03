@@ -15,12 +15,12 @@ import com.badlogic.gdx.utils.Disposable;
 
 public class Assets implements Disposable, AssetErrorListener {
     private static final String TAG = Assets.class.getName();
-    static final Assets instance = new Assets();
-    AssetGoldCoin coin;
-    private TextureAtlas atlas;
-    AssetPlayer player;
-    AssetRock rock;
-    AssetLevelDecoration levelDecoration;
+    public static final Assets instance = new Assets();
+    public AssetGoldCoin coin;
+    public TextureAtlas atlas;
+    public AssetPlayer player;
+    public AssetRock rock;
+    public AssetLevelDecoration levelDecoration;
 
     private Assets() {
     }
@@ -57,7 +57,7 @@ public class Assets implements Disposable, AssetErrorListener {
         }
     }
 
-    void init(AssetManager assetManager) {
+    public void init(AssetManager assetManager) {
         Gdx.app.debug(TAG, "# of assets loaded: " + assetManager.getAssetNames().size);
 
         for (String a : assetManager.getAssetNames())
@@ -78,9 +78,11 @@ public class Assets implements Disposable, AssetErrorListener {
 
     public class AssetRock {
         public final AtlasRegion rock;
+        public final AtlasRegion rockUnder;
 
         public AssetRock(TextureAtlas atlas) {
-            rock = atlas.findRegion("rock");
+            rock = atlas.findRegion("rock2");
+            rockUnder = atlas.findRegion("rockUnder");
         }
     }
 

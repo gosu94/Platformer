@@ -1,6 +1,10 @@
 package com.gdx.game;
 
 import com.badlogic.gdx.utils.Array;
+import com.gdx.game.GameObjects.Coin;
+import com.gdx.game.GameObjects.Enemy;
+import com.gdx.game.GameObjects.Player;
+import com.gdx.game.GameObjects.Rock;
 
 public class State {
     Player player;

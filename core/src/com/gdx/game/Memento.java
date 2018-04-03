@@ -2,19 +2,22 @@ package com.gdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
+import com.gdx.game.GameObjects.Coin;
+import com.gdx.game.GameObjects.Enemy;
+import com.gdx.game.GameObjects.Rock;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-class Memento {
+public class Memento {
 
     private static final String TAG = WorldController.class.getName();
     State state;
     String fileName;
 
-    Memento(State state, String fileName) {
+    public Memento(State state, String fileName) {
         this.state = state;
         this.fileName = fileName;
 
@@ -57,7 +60,7 @@ class Memento {
         }
     }
 
-    void loadFromMemento(Memento memento) {
+    public void loadFromMemento(Memento memento) {
 
         try {
             FileInputStream fis = new FileInputStream(memento.fileName + ".obj");

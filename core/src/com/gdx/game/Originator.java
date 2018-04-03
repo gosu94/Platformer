@@ -9,15 +9,15 @@ public class Originator {
 
     private static final String TAG = WorldController.class.getName();
 
-    static Memento saveToMemento(State state, String fileName) {
+    public static Memento saveToMemento(State state, String fileName) {
         return new Memento(state, fileName);
     }
 
-    static void loadFromMemento(Memento memento) {
+    public static void loadFromMemento(Memento memento) {
         memento.loadFromMemento(memento);
     }
 
-    static void saveMementos(List<Memento> mementos) {
+    public static void saveMementos(List<Memento> mementos) {
 
         try {
             FileOutputStream fos = new FileOutputStream("mementos.obj");
@@ -34,7 +34,7 @@ public class Originator {
         }
     }
 
-    static List<Memento> loadMementos() {
+    public static List<Memento> loadMementos() {
         try {
             FileInputStream fis = new FileInputStream("mementos.obj");
             ObjectInputStream ois = new ObjectInputStream(fis);

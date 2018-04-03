@@ -2,8 +2,10 @@ package com.gdx.game;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.gdx.game.GameObjects.AbstractGameObject;
+import com.gdx.game.GameObjects.Cloud;
 
-public class EnvironmentFactroy {
+public class EnvironmentFactory {
     public static AbstractGameObject createCloud(String object, int posX, int posY, Vector2 dimension) {
 
         if ("Cloud".equals(object)) {

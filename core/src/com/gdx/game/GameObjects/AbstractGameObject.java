@@ -1,4 +1,4 @@
-package com.gdx.game;
+package com.gdx.game.GameObjects;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -9,23 +9,23 @@ import com.badlogic.gdx.math.Vector2;
 
 public abstract class AbstractGameObject {
 
-    Vector2 position;
-    Vector2 dimension;
-    Vector2 origin;
-    Vector2 scale;
-    float rotation;
+    public Vector2 position;
+    public Vector2 dimension;
+    public Vector2 origin;
+    public Vector2 scale;
+    public float rotation;
 
 
-    Vector2 velocity;
-    Vector2 maximalSpeed;
-    Vector2 friction;
-    Vector2 acceleration;
-    Rectangle bounds;
+    public Vector2 velocity;
+    public Vector2 maximalSpeed;
+    public Vector2 friction;
+    public Vector2 acceleration;
+    public Rectangle bounds;
 
     public float stateTime;
     public Animation<TextureRegion> animation;
 
-    AbstractGameObject() {
+    public AbstractGameObject() {
         position = new Vector2();
         dimension = new Vector2(1, 1);
         origin = new Vector2();

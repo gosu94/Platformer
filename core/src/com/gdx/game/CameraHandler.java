@@ -3,17 +3,18 @@ package com.gdx.game;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.gdx.game.GameObjects.AbstractGameObject;
 
-public class CameraHelper {
+public class CameraHandler {
 
-    private static final String TAG = CameraHelper.class.getName();
+    private static final String TAG = CameraHandler.class.getName();
     private final float MAX_ZOOM_IN = 0.25f;
     private final float MAX_ZOOM_OUT = 10.0f;
     private Vector2 position;
     private float zoom;
     private AbstractGameObject target;
 
-    CameraHelper() {
+    CameraHandler() {
         position = new Vector2();
         zoom = 1.2f;
     }

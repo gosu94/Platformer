@@ -1,7 +1,8 @@
-package com.gdx.game;
+package com.gdx.game.GameObjects;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.gdx.game.Assets;
 
 import java.io.Serializable;
 
@@ -18,7 +19,7 @@ public class Player extends AbstractGameObject implements Serializable {
     private float timeJumping;
     public JUMP_STATE jumpState;
 
-    Player() {
+    public Player() {
         init();
     }
 
@@ -61,23 +62,17 @@ public class Player extends AbstractGameObject implements Serializable {
                 jumpState = JUMP_STATE.FALLING;
                 break;
             case JUMP_RISING:
-                // Keep track of jump time
                 timeJumping += deltaTime;
-                // Jump time left?
                 if (timeJumping <= JUMP_TIME_MAX) {
-                    // Still jumping
                     velocity.y = maximalSpeed.y;
                 }
-                // Jump to minimal height if jump key was pressed too short
                 if (timeJumping > 0 && timeJumping <= JUMP_TIME_MIN) {
-                    // Still jumping
                     velocity.y = maximalSpeed.y;
                 }
                 break;
             case FALLING:
                 break;
             case JUMP_FALLING:
-                // Add delta times to track jump time
                 timeJumping += deltaTime;
 
 
@@ -90,8 +85,6 @@ public class Player extends AbstractGameObject implements Serializable {
     @Override
     public void render(SpriteBatch batch) {
         TextureRegion reg = null;
-        // Set special color when game object has a feather power-up
-        // Draw image
         reg = animation.getKeyFrame(stateTime, true);
 
         batch.draw(reg.getTexture(), position.x, position.y, origin.x,
@@ -105,19 +98,18 @@ public class Player extends AbstractGameObject implements Serializable {
 
     public void setJumping(boolean jumpKeyPressed) {
         switch (jumpState) {
-            case GROUNDED: // Character is standing on a platform
+            case GROUNDED:
                 if (jumpKeyPressed) {
-                    // Start counting jump time from the beginning
                     timeJumping = 0;
                     jumpState = JUMP_STATE.JUMP_RISING;
                 }
                 break;
-            case JUMP_RISING: // Rising in the air
+            case JUMP_RISING:
                 if (!jumpKeyPressed)
                     jumpState = JUMP_STATE.JUMP_FALLING;
                 break;
-            case FALLING:// Falling down
-            case JUMP_FALLING: // Falling down after jump
+            case FALLING:
+            case JUMP_FALLING:
                 break;
         }
     }

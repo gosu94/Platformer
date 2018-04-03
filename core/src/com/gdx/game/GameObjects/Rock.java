@@ -1,20 +1,22 @@
-package com.gdx.game;
+package com.gdx.game.GameObjects;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.gdx.game.Assets;
 
 public class Rock extends AbstractGameObject {
 
     private TextureRegion regMiddle;
     private int length;
 
-    public Rock() {
-        init();
+    public Rock(boolean isUnder) {
+        init(isUnder);
     }
 
-    private void init() {
+    private void init(boolean isUnder) {
         dimension.set(1.0f, 1.0f);
-        regMiddle = Assets.instance.rock.rock;
+        if (!isUnder) regMiddle = Assets.instance.rock.rock;
+        else regMiddle = Assets.instance.rock.rockUnder;
         // Start length of this rock
         setLength(1);
     }

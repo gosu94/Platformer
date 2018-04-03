@@ -2,6 +2,8 @@ package com.gdx.game;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
+import com.gdx.game.GameObjects.AbstractGameObject;
+import com.gdx.game.GameObjects.Cloud;
 
 public class Clouds extends AbstractGameObject {
 
@@ -19,7 +21,7 @@ public class Clouds extends AbstractGameObject {
         int numClouds = (int) (length / distFac);
         clouds = new Array<Cloud>(2 * numClouds);
         for (int i = 0; i < numClouds; i++) {
-            Cloud cloud = (Cloud) EnvironmentFactroy.createCloud("Cloud", i * 10, 0, dimension);//spawnCloud();
+            Cloud cloud = (Cloud) EnvironmentFactory.createCloud("Cloud", i * 10, 0, dimension);//spawnCloud();
             cloud.position.x = i * distFac;
             clouds.add(cloud);
         }

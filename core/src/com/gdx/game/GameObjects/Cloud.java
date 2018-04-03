@@ -1,4 +1,4 @@
-package com.gdx.game;
+package com.gdx.game.GameObjects;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -7,10 +7,10 @@ public class Cloud extends AbstractGameObject {
     private TextureRegion regCloud;
 
 
-    Cloud() {
+    public Cloud() {
     }
 
-    void setRegion(TextureRegion region) {
+    public void setRegion(TextureRegion region) {
         regCloud = region;
     }
 

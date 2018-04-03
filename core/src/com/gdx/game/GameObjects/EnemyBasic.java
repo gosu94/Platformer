@@ -1,11 +1,12 @@
-package com.gdx.game;
+package com.gdx.game.GameObjects;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.gdx.game.Assets;
 
 public class EnemyBasic extends Enemy {
 
-    EnemyBasic() {
+    public EnemyBasic() {
         init();
     }
 
@@ -13,17 +14,14 @@ public class EnemyBasic extends Enemy {
         dimension.set(1f, 1f);
         origin.set(dimension.x / 2, dimension.y / 2);
         bounds.set(0, 0, dimension.x, dimension.y);
-        maximalSpeed.set(4.0f, 8.0f);
+        maximalSpeed.set(maxSpeedX, 8.0f);
         acceleration.set(speedX, speedY);
         enemySprite = Assets.instance.player.player;
 
     }
 
-    void changeDirection() {
-        speedX = -speedX;
-        //zeby sie odbil
-        velocity.x = speedX / 2;
-        acceleration.set(speedX, speedY);
+    public void changeDirection() {
+        super.changeDirection();
     }
 
     @Override
