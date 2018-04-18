@@ -93,7 +93,7 @@ public class Player extends AbstractGameObject implements Serializable {
                 reg.getRegionHeight(), viewDirection == VIEW_DIRECTION.LEFT,
                 false);
         // Reset color to white
-        batch.setColor(1, 1, 1, 1);
+        //batch.setColor(1, 1, 1, 1);
     }
 
     public void setJumping(boolean jumpKeyPressed) {

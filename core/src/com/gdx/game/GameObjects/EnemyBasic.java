@@ -6,6 +6,8 @@ import com.gdx.game.Assets;
 
 public class EnemyBasic extends Enemy {
 
+    TextureRegion reg;
+
     public EnemyBasic() {
         init();
     }
@@ -17,6 +19,7 @@ public class EnemyBasic extends Enemy {
         maximalSpeed.set(maxSpeedX, 8.0f);
         acceleration.set(speedX, speedY);
         enemySprite = Assets.instance.player.player;
+        reg = enemySprite;
 
     }
 
@@ -31,7 +34,7 @@ public class EnemyBasic extends Enemy {
 
     @Override
     public void render(SpriteBatch batch) {
-        TextureRegion reg = enemySprite;
+
         batch.draw(reg.getTexture(), position.x, position.y,
                 origin.x, origin.y, dimension.x, dimension.y, scale.x, scale.y,
                 rotation, reg.getRegionX(), reg.getRegionY(),
