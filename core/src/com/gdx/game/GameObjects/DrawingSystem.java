@@ -7,16 +7,15 @@ import java.util.List;
 
 public class DrawingSystem extends System {
 
-    DrawingSystem(List<Entity> entityList) {
+    public DrawingSystem(List<Entity> entityList) {
         super(entityList);
     }
 
-    void update(Batch batch, float deltaTime) {
+    public void update(Batch batch) {
         for (Entity entity : entityList) {
             if (containsComponent(entity.componentList, "SpriteComponent")) {
                 BoundsComponent bounds = (BoundsComponent) getComponentOfEntity(entity, "BoundsComponent");
                 SpriteComponent sprite = (SpriteComponent) getComponentOfEntity(entity, "SpriteComponent");
-                sprite.stateTime += deltaTime;
 
                 if (!sprite.hasAnimation) {
                     batch.draw(sprite.sprite.getTexture(), bounds.position.x, bounds.position.y,

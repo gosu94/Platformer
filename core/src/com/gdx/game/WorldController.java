@@ -41,10 +41,10 @@ public class WorldController {
 
     public void update(float deltaTime) {
         inputHandler.handleDebugInput(deltaTime);
-        inputHandler.handlePlayerInput(deltaTime);
+        InputHandler.handlePlayerInput(deltaTime, Level.playerEntity);
         level.update(deltaTime);
-        collisionHandler.testCollisionsForPlayer();
-        collisionHandler.testCollisionForEnemies();
+        // collisionHandler.testCollisionsForPlayer();
+        //collisionHandler.testCollisionForEnemies();
         cameraHandler.update(deltaTime);
     }
 

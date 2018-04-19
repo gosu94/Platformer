@@ -10,9 +10,11 @@ public class Entity {
     List<Component> componentList;
     int componentCounter;
     HashMap<String, Integer> nameMap;
+    String name;
 
 
-    Entity() {
+    public Entity(String name) {
+        this.name = name;
         componentList = new ArrayList<>();
         nameMap = new HashMap<>();
         id = counter;
@@ -20,17 +22,25 @@ public class Entity {
         componentCounter = 0;
     }
 
-    void addComponent(Component component) {
+    public void addComponent(Component component) {
         componentList.add(component);
         nameMap.put(component.getName(), componentCounter);
         componentCounter++;
     }
 
-    void removeComponent(String componentName) {
+    public void removeComponent(String componentName) {
         for (Component component : componentList) {
             if (component.name.equals(componentName))
                 componentList.remove(component);
         }
+    }
+
+    public Component getComponent(String componentName) {
+        for (Component component : componentList) {
+            if (component.name.equals(componentName))
+                return component;
+        }
+        return null;
     }
 
 }

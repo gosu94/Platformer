@@ -10,7 +10,7 @@ public class SpriteComponent extends Component {
     int stateTime;
     boolean hasAnimation;
 
-    SpriteComponent(Animation<TextureRegion> animation) {
+    public SpriteComponent(Animation<TextureRegion> animation) {
         super("SpriteComponent");
         this.animation = animation;
         this.hasAnimation = true;
@@ -18,8 +18,8 @@ public class SpriteComponent extends Component {
 
     }
 
-    SpriteComponent(String name, TextureRegion sprite) {
-        super(name);
+    public SpriteComponent(TextureRegion sprite) {
+        super("SpriteComponent");
         this.sprite = sprite;
         this.hasAnimation = false;
     }

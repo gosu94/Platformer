@@ -6,11 +6,11 @@ import java.util.List;
 
 public class MovingSystem extends System {
 
-    MovingSystem(List<Entity> entityList) {
+    public MovingSystem(List<Entity> entityList) {
         super(entityList);
     }
 
-    void update(float deltaTime) {
+    public void update(float deltaTime) {
         for (Entity entity : entityList) {
             if (containsComponent(entity.componentList, "VelocityComponent")) {
                 VelocityComponent velocityComponent = (VelocityComponent) getComponentOfEntity(entity, "VelocityComponent");
@@ -24,7 +24,7 @@ public class MovingSystem extends System {
         }
     }
 
-    protected void updateMotionX(VelocityComponent velocityComponent, float deltaTime) {
+    private void updateMotionX(VelocityComponent velocityComponent, float deltaTime) {
         if (velocityComponent.velocity.x != 0) {
             // Apply friction
             if (velocityComponent.velocity.x > 0) {
@@ -43,7 +43,7 @@ public class MovingSystem extends System {
                 -velocityComponent.maximalSpeed.x, velocityComponent.maximalSpeed.x);
     }
 
-    protected void updateMotionY(VelocityComponent velocityComponent, float deltaTime) {
+    private void updateMotionY(VelocityComponent velocityComponent, float deltaTime) {
         if (velocityComponent.velocity.y != 0) {
             // Apply friction
             if (velocityComponent.velocity.y > 0) {

@@ -1,6 +1,8 @@
 package com.gdx.game;
 
 import com.badlogic.gdx.*;
+import com.gdx.game.GameObjects.Entity;
+import com.gdx.game.GameObjects.VelocityComponent;
 import com.gdx.game.GameScreens.MenuScreen;
 
 import java.util.ArrayList;
@@ -14,13 +16,13 @@ public class InputHandler extends InputAdapter {
     static List<Memento> mementos = new ArrayList<Memento>();
     static int score;
     CollisionHandler collisionHandler;
-    State state;
-    private Game game;
+    static State state;
+    static private Game game;
 
     public InputHandler(Game game) {
         Gdx.input.setInputProcessor(this);
         collisionHandler = new CollisionHandler();
-        this.game = game;
+        InputHandler.game = game;
     }
 
     @Override
@@ -46,31 +48,31 @@ public class InputHandler extends InputAdapter {
         return false;
     }
 
-    public void backToMenu() {
+    static public void backToMenu() {
         game.setScreen(new MenuScreen(game));
     }
 
 
-    public void handlePlayerInput(float deltaTime) {
+    static public void handlePlayerInput(float deltaTime, Entity player) {
 
-        if (cameraHandler.hasTarget(Level.player)) {
+        // if (cameraHandler.hasTarget(Level.player)) {
 
-            if (cameraHandler.hasTarget(Level.player)) {
+        VelocityComponent velocityComponent = (VelocityComponent) player.getComponent("VelocityComponent");
 
                 if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
-                    Level.player.velocity.x = -Level.player.maximalSpeed.x;
+                    velocityComponent.velocity.x = -velocityComponent.maximalSpeed.x;
                 if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
-                    Level.player.velocity.x = Level.player.maximalSpeed.x;
+                    velocityComponent.velocity.x = velocityComponent.maximalSpeed.x;
 
 
-                if (Gdx.input.isKeyPressed(Input.Keys.SPACE))
-                    Level.player.setJumping(true);
-                else
-                    Level.player.setJumping(false);
+        //if (Gdx.input.isKeyPressed(Input.Keys.SPACE))
+        //   Level.player.setJumping(true);
+        //else
+        //   Level.player.setJumping(false);
 
-            }
+        // }
 
-        }
+
 
     }
 
