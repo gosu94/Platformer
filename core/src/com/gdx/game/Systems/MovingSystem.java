@@ -1,6 +1,10 @@
-package com.gdx.game.GameObjects;
+package com.gdx.game.Systems;
 
 import com.badlogic.gdx.math.MathUtils;
+import com.gdx.game.Components.BoundsComponent;
+import com.gdx.game.Components.VelocityComponent;
+import com.gdx.game.Constants;
+import com.gdx.game.Entity;
 
 import java.util.List;
 
@@ -12,6 +16,7 @@ public class MovingSystem extends System {
 
     public void update(float deltaTime) {
         for (Entity entity : entityList) {
+            removeIfNeccesarry(entity);
             if (containsComponent(entity.componentList, "VelocityComponent")) {
                 VelocityComponent velocityComponent = (VelocityComponent) getComponentOfEntity(entity, "VelocityComponent");
                 BoundsComponent boundsComponent = (BoundsComponent) getComponentOfEntity(entity, "BoundsComponent");
@@ -20,6 +25,14 @@ public class MovingSystem extends System {
                 // Move to new position
                 boundsComponent.position.x += velocityComponent.velocity.x * deltaTime;
                 boundsComponent.position.y += velocityComponent.velocity.y * deltaTime;
+
+                if (velocityComponent.velocity.x != 0) {
+                    velocityComponent.viewDirection = velocityComponent.velocity.x < 0 ? Constants.VIEW_DIRECTION.LEFT :
+                            Constants.VIEW_DIRECTION.RIGHT;
+                }
+
+                if ("Player".equals(entity.name))
+                    if (boundsComponent.position.y < -4) boundsComponent.position.y = 7;
             }
         }
     }

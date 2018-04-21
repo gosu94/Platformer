@@ -1,16 +1,20 @@
-package com.gdx.game.GameObjects;
+package com.gdx.game;
+
+import com.gdx.game.Components.Component;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class Entity {
-    static int counter;
-    long id;
-    List<Component> componentList;
-    int componentCounter;
-    HashMap<String, Integer> nameMap;
-    String name;
+    public static int counter;
+    public long id;
+    public List<Component> componentList;
+    public int componentCounter;
+    public HashMap<String, Integer> nameMap;
+    public boolean toRemove;
+
+    public String name;
 
 
     public Entity(String name) {
@@ -20,6 +24,7 @@ public class Entity {
         id = counter;
         counter++;
         componentCounter = 0;
+        toRemove = false;
     }
 
     public void addComponent(Component component) {
@@ -41,6 +46,26 @@ public class Entity {
                 return component;
         }
         return null;
+    }
+
+    public boolean containsComponent(String componentName) {
+        for (Component component : componentList) {
+            if (component.name.equals(componentName))
+                return true;
+        }
+        return false;
+    }
+
+    public void remove() {
+        toRemove = true;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
 }

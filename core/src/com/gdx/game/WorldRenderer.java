@@ -69,7 +69,7 @@ public class WorldRenderer implements Disposable {
         batch.draw(Assets.instance.coin.goldCoin,
                 x, y, 50, 50, 100, 100, 0.35f, -0.35f, 0);
         Assets.instance.fonts.defaultNormal.draw(batch,
-                "" + WorldController.score,
+                "" + Globals.points,
                 x + 75, y + 37);
     }
 

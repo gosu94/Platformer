@@ -1,8 +1,8 @@
-package com.gdx.game.GameObjects;
+package com.gdx.game.Components;
 
 public class Component {
 
-    String name;
+    public String name;
 
     public Component(String name) {
         this.name = name;

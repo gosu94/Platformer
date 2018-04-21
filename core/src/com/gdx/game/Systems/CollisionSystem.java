@@ -1,12 +1,17 @@
-package com.gdx.game.GameObjects;
+package com.gdx.game.Systems;
 
 import com.badlogic.gdx.math.Rectangle;
+import com.gdx.game.Components.BoundsComponent;
+import com.gdx.game.Components.JumpComponent;
+import com.gdx.game.Components.VelocityComponent;
+import com.gdx.game.Constants;
+import com.gdx.game.Entity;
+import com.gdx.game.Globals;
 
 import java.util.List;
 
 public class CollisionSystem extends System {
 
-    public static final String TAG = Player.class.getName();
     private Rectangle r1;
     private Rectangle r2;
 
@@ -18,6 +23,7 @@ public class CollisionSystem extends System {
 
     public void update() {
         for (Entity entity : entityList) {
+            removeIfNeccesarry(entity);
             if (containsComponent(entity.componentList, "CollisionComponent") &&
                     !"Rock".equals(entity.name)) {
                 BoundsComponent bounds = (BoundsComponent) getComponentOfEntity(entity, "BoundsComponent");
@@ -25,21 +31,25 @@ public class CollisionSystem extends System {
                 for (Entity entity2 : entityList) {
                     if (containsComponent(entity2.componentList, "CollisionComponent")) {
                         BoundsComponent entity2Bounds = (BoundsComponent) getComponentOfEntity(entity2, "BoundsComponent");
-                        r1.set(bounds.position.x, bounds.position.y, bounds.bounds.width, bounds.bounds.height);
-                        r2.set(entity2Bounds.position.x, entity2Bounds.position.y, entity2Bounds.bounds.width, entity2Bounds.bounds.height);
+                        r1.set(bounds.position.x, bounds.position.y,
+                                bounds.bounds.width, bounds.bounds.height);
+                        r2.set(entity2Bounds.position.x, entity2Bounds.position.y,
+                                entity2Bounds.bounds.width, entity2Bounds.bounds.height);
                         if (r1.overlaps(r2)) {
-                            if ("Rock".equals(entity2.name)) {
+                            if ("Rock".equals(entity2.name))
                                 collisionWithRock(entity, entity2);
-                            }
+                            if ("Coin".equals(entity2.name) && "Player".equals(entity.name))
+                                collisionWithCoin(entityList, entity2);
                         }
                     }
+
                 }
 
             }
         }
     }
 
-    void collisionWithRock(Entity entity, Entity rock) {
+    private void collisionWithRock(Entity entity, Entity rock) {
         BoundsComponent bounds = (BoundsComponent) getComponentOfEntity(entity, "BoundsComponent");
         VelocityComponent velocity = (VelocityComponent) getComponentOfEntity(entity, "VelocityComponent");
         BoundsComponent rockBounds = (BoundsComponent) getComponentOfEntity(rock, "BoundsComponent");
@@ -63,11 +73,34 @@ public class CollisionSystem extends System {
             return;
         }
 
-        bounds.position.y = rockBounds.position.y + rockBounds.bounds.height;
+        if ("Player".equals(entity.name)) {
+            JumpComponent jumpComponent = (JumpComponent) entity.getComponent("JumpComponent");
+            switch (jumpComponent.jumpState) {
+                case GROUNDED:
+                    break;
+                case FALLING:
+                case JUMP_FALLING:
+                    bounds.position.y = rockBounds.position.y + bounds.bounds.height;
+                    jumpComponent.jumpState = Constants.JUMP_STATE.GROUNDED;
+                    break;
+                case JUMP_RISING:
+                    bounds.position.y = rockBounds.position.y + bounds.bounds.height;
+                    break;
+            }
+        } else {
+            bounds.position.y = rockBounds.position.y + rockBounds.bounds.height;
+        }
+    }
+
+    private void collisionWithCoin(List<Entity> entityList, Entity coin) {
+
+        //coin.remove();
+        Globals.points += 100;
+
     }
 
 
-    void changeDirection(VelocityComponent velocity) {
+    private void changeDirection(VelocityComponent velocity) {
         float speedX = velocity.acceleration.x;
         speedX = -speedX;
         //zeby sie odbil

@@ -1,4 +1,4 @@
-package com.gdx.game.GameObjects;
+package com.gdx.game.Components;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -12,11 +12,11 @@ public class BoundsComponent extends Component {
     public float rotation;
     public Rectangle bounds;
 
-    public BoundsComponent(Vector2 position, Rectangle bounds) {
+    public BoundsComponent(Vector2 position, float dimensionX, float dimensionY) {
         super("BoundsComponent");
         this.position = position;
-        this.bounds = bounds;
-        this.dimension = new Vector2().set(1f, 1f);
+        this.bounds = new Rectangle(0, 0, dimensionX, dimensionY);
+        this.dimension = new Vector2().set(dimensionX, dimensionY);
         this.origin = new Vector2().set(dimension.x / 2, dimension.y / 2);
         this.scale = new Vector2(1, 1);
         this.rotation = 0;

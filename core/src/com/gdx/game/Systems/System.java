@@ -1,9 +1,13 @@
-package com.gdx.game.GameObjects;
+package com.gdx.game.Systems;
+
+import com.gdx.game.Components.Component;
+import com.gdx.game.Entity;
 
 import java.util.List;
 
 abstract public class System {
-    List<Entity> entityList;
+    public List<Entity> entityList;
+
 
     System(List<Entity> entityList) {
         this.entityList = entityList;
@@ -15,6 +19,13 @@ abstract public class System {
 
     Component getComponentOfEntity(Entity entity, String componentName) {
         return entity.componentList.get(entity.nameMap.get(componentName));
+    }
+
+    public void removeIfNeccesarry(Entity entity) {
+        if (entity.toRemove) {
+            entityList.remove(entity);
+        }
+
     }
 
 

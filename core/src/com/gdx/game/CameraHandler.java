@@ -3,7 +3,7 @@ package com.gdx.game;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.gdx.game.GameObjects.AbstractGameObject;
+import com.gdx.game.Components.BoundsComponent;
 
 public class CameraHandler {
 
@@ -12,7 +12,7 @@ public class CameraHandler {
     private final float MAX_ZOOM_OUT = 10.0f;
     private Vector2 position;
     private float zoom;
-    private AbstractGameObject target;
+    private BoundsComponent target;
 
     CameraHandler() {
         position = new Vector2();
@@ -45,19 +45,19 @@ public class CameraHandler {
         return zoom;
     }
 
-    void setTarget(AbstractGameObject target) {
-        this.target = target;
+    public BoundsComponent getTarget() {
+        return target;
     }
 
-    public AbstractGameObject getTarget() {
-        return target;
+    void setTarget(BoundsComponent target) {
+        this.target = target;
     }
 
     boolean hasTarget() {
         return target != null;
     }
 
-    public boolean hasTarget(AbstractGameObject target) {
+    public boolean hasTarget(BoundsComponent target) {
         return hasTarget() && this.target.equals(target);
     }
 

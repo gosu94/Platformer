@@ -10,7 +10,6 @@ public class WorldController {
     private static final String TAG = WorldController.class.getName();
     public static List<Memento> mementos = new ArrayList<Memento>();
     static CameraHandler cameraHandler;
-    CollisionHandler collisionHandler;
     Level level;
     InputHandler inputHandler;
     static int score;
@@ -26,7 +25,6 @@ public class WorldController {
 
     public void init() {
         lives = Constants.LIVES_START;
-        collisionHandler = new CollisionHandler();
         cameraHandler = new CameraHandler();
         inputHandler = new InputHandler(game);
         initLevel();
@@ -35,7 +33,7 @@ public class WorldController {
     void initLevel() {
         score = 0;
         level = new Level(Constants.LEVEL_01);
-        cameraHandler.setTarget(Level.player);
+        cameraHandler.setTarget(Level.playerBounds);
         cameraHandler.setPosition(0, 3);
     }
 

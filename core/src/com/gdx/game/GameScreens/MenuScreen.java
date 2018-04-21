@@ -10,7 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.gdx.game.Constants;
-import com.gdx.game.Originator;
 import com.gdx.game.WorldController;
 
 public class MenuScreen extends AbstractGameScreen {
@@ -109,7 +108,7 @@ public class MenuScreen extends AbstractGameScreen {
 
         void listener() {
             game.setScreen(new GameScreen(game));
-            Originator.loadFromMemento(WorldController.mementos.get(WorldController.mementos.size() - 1));
+            // Originator.loadFromMemento(WorldController.mementos.get(WorldController.mementos.size() - 1));
         }
     }
 

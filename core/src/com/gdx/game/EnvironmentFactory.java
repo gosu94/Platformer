@@ -2,21 +2,19 @@ package com.gdx.game;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.gdx.game.GameObjects.AbstractGameObject;
-import com.gdx.game.GameObjects.Cloud;
+import com.gdx.game.Components.BoundsComponent;
+import com.gdx.game.Components.SpriteComponent;
 
 public class EnvironmentFactory {
-    public static AbstractGameObject createCloud(String object, int posX, int posY, Vector2 dimension) {
+    public static Entity createEntity(String name, int posX, int posY) {
 
-        if ("Cloud".equals(object)) {
-            Cloud cloud = new Cloud();
-            cloud.dimension.set(dimension);
-            cloud.setRegion(Assets.instance.levelDecoration.cloud);
-            Vector2 pos = new Vector2();
-            pos.x = posX;
-            pos.y += 5.75;
-            pos.y += MathUtils.random(0.0f, 0.2f) * (MathUtils.randomBoolean() ? 1 : -1);
-            cloud.position.set(pos);
+        if ("Cloud".equals(name)) {
+
+            Entity cloud = new Entity("Cloud");
+            float height = 6 + MathUtils.random(0.0f, 0.2f) * (MathUtils.randomBoolean() ? 1 : -1);
+            cloud.addComponent(new BoundsComponent(new Vector2(posX, height), 2f, 1));
+            cloud.addComponent(new SpriteComponent(Assets.instance.levelDecoration.cloud));
+
             return cloud;
         }
 

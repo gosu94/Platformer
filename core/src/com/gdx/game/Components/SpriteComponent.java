@@ -1,14 +1,14 @@
-package com.gdx.game.GameObjects;
+package com.gdx.game.Components;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class SpriteComponent extends Component {
 
-    Animation<TextureRegion> animation;
-    TextureRegion sprite;
-    int stateTime;
-    boolean hasAnimation;
+    public Animation<TextureRegion> animation;
+    public TextureRegion sprite;
+    public float stateTime;
+    public boolean hasAnimation;
 
     public SpriteComponent(Animation<TextureRegion> animation) {
         super("SpriteComponent");

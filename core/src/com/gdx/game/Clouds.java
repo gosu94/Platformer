@@ -1,14 +1,12 @@
 package com.gdx.game;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.Array;
-import com.gdx.game.GameObjects.AbstractGameObject;
-import com.gdx.game.GameObjects.Cloud;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Clouds extends AbstractGameObject {
+public class Clouds {
 
     private float length;
-    private Array<Cloud> clouds;
+    private List<Entity> clouds;
 
     public Clouds(float length) {
         this.length = length;
@@ -16,21 +14,16 @@ public class Clouds extends AbstractGameObject {
     }
 
     private void fillLevel() {
-        dimension.set(2.0f, 1.0f);
         int distFac = 5;
         int numClouds = (int) (length / distFac);
-        clouds = new Array<Cloud>(2 * numClouds);
+        clouds = new ArrayList<Entity>(2 * numClouds);
+
         for (int i = 0; i < numClouds; i++) {
-            Cloud cloud = (Cloud) EnvironmentFactory.createCloud("Cloud", i * 10, 0, dimension);//spawnCloud();
-            cloud.position.x = i * distFac;
+            Entity cloud = EnvironmentFactory.createEntity("Cloud", i * 10, 0);
             clouds.add(cloud);
         }
+        Level.entities.addAll(clouds);
     }
 
-
-    @Override
-    public void render(SpriteBatch batch) {
-        for (Cloud cloud : clouds) cloud.render(batch);
-    }
 
 }

@@ -9,4 +9,10 @@ public class Constants {
     static final String LEVEL_01 = "levels/level1.png";
     public static final int LIVES_START = 3;
 
+    public enum JUMP_STATE {
+        GROUNDED, FALLING, JUMP_RISING, JUMP_FALLING
+    }
+
+    public enum VIEW_DIRECTION {LEFT, RIGHT}
+
 }

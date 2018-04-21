@@ -1,4 +1,4 @@
-package com.gdx.game.GameObjects;
+package com.gdx.game.Components;
 
 public class CollisionComponent extends Component {
 
