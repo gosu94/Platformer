@@ -5,7 +5,7 @@ import com.gdx.game.Components.BoundsComponent;
 import com.gdx.game.Components.JumpComponent;
 import com.gdx.game.Components.VelocityComponent;
 import com.gdx.game.Constants;
-import com.gdx.game.Entity;
+import com.gdx.game.Entity.Entity;
 import com.gdx.game.Globals;
 
 import java.util.List;
@@ -23,12 +23,12 @@ public class CollisionSystem extends System {
 
     public void update() {
         for (Entity entity : entityList) {
-            removeIfNeccesarry(entity);
             if (containsComponent(entity.componentList, "CollisionComponent") &&
-                    !"Rock".equals(entity.name)) {
+                    !"Rock".equals(entity.getName())) {
                 BoundsComponent bounds = (BoundsComponent) getComponentOfEntity(entity, "BoundsComponent");
 
                 for (Entity entity2 : entityList) {
+
                     if (containsComponent(entity2.componentList, "CollisionComponent")) {
                         BoundsComponent entity2Bounds = (BoundsComponent) getComponentOfEntity(entity2, "BoundsComponent");
                         r1.set(bounds.position.x, bounds.position.y,
@@ -36,10 +36,12 @@ public class CollisionSystem extends System {
                         r2.set(entity2Bounds.position.x, entity2Bounds.position.y,
                                 entity2Bounds.bounds.width, entity2Bounds.bounds.height);
                         if (r1.overlaps(r2)) {
-                            if ("Rock".equals(entity2.name))
+                            if ("Rock".equals(entity2.getName()))
                                 collisionWithRock(entity, entity2);
-                            if ("Coin".equals(entity2.name) && "Player".equals(entity.name))
-                                collisionWithCoin(entityList, entity2);
+                            if ("Coin".equals(entity2.getName()) && "Player".equals(entity.getName())) {
+                                collisionWithCoin(entity2);
+                            }
+
                         }
                     }
 
@@ -61,19 +63,19 @@ public class CollisionSystem extends System {
             if (hitRightEdge) {
                 bounds.position.x = rockBounds.position.x + rockBounds.bounds.width;
 
-                if ("Enemy".equals(entity.name)) {
+                if ("Enemy".equals(entity.getName())) {
                     changeDirection(velocity);
                 }
             } else {
                 bounds.position.x = rockBounds.position.x - bounds.bounds.width;
-                if ("Enemy".equals(entity.name)) {
+                if ("Enemy".equals(entity.getName())) {
                     changeDirection(velocity);
                 }
             }
             return;
         }
 
-        if ("Player".equals(entity.name)) {
+        if ("Player".equals(entity.getName())) {
             JumpComponent jumpComponent = (JumpComponent) entity.getComponent("JumpComponent");
             switch (jumpComponent.jumpState) {
                 case GROUNDED:
@@ -92,9 +94,10 @@ public class CollisionSystem extends System {
         }
     }
 
-    private void collisionWithCoin(List<Entity> entityList, Entity coin) {
+    private void collisionWithCoin(Entity coin) {
 
-        //coin.remove();
+
+        coin.reset();
         Globals.points += 100;
 
     }

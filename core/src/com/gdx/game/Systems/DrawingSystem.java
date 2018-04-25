@@ -6,7 +6,7 @@ import com.gdx.game.Components.BoundsComponent;
 import com.gdx.game.Components.SpriteComponent;
 import com.gdx.game.Components.VelocityComponent;
 import com.gdx.game.Constants;
-import com.gdx.game.Entity;
+import com.gdx.game.Entity.Entity;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class DrawingSystem extends System {
 
     public void update(Batch batch) {
         for (Entity entity : entityList) {
-            removeIfNeccesarry(entity);
+
             if (containsComponent(entity.componentList, "SpriteComponent")) {
                 BoundsComponent bounds = (BoundsComponent) entity.getComponent("BoundsComponent");
                 SpriteComponent sprite = (SpriteComponent) entity.getComponent("SpriteComponent");

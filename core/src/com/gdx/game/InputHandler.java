@@ -3,6 +3,7 @@ package com.gdx.game;
 import com.badlogic.gdx.*;
 import com.gdx.game.Components.JumpComponent;
 import com.gdx.game.Components.VelocityComponent;
+import com.gdx.game.Entity.Entity;
 import com.gdx.game.GameScreens.MenuScreen;
 
 import java.util.ArrayList;
@@ -58,14 +59,14 @@ public class InputHandler extends InputAdapter {
             Gdx.app.debug(TAG, "Camera follow enabled: " + cameraHandler.hasTarget());
         }
         if (keycode == Input.Keys.S) {
-//            state = new State(Level.player, Level.enemies, Level.rocks, Level.coins, score);
-//            if (mementos != null)
-//                mementos.add(Originator.saveToMemento(state, "savedGame" + Integer.toString(mementos.size() + 1)));
-//            else
-//                mementos.add(Originator.saveToMemento(state, "savedGame0"));
+            state = new State(Level.entities, score);
+            if (mementos != null)
+                mementos.add(Originator.saveToMemento(state, "savedGame" + Integer.toString(mementos.size() + 1)));
+            else
+                mementos.add(Originator.saveToMemento(state, "savedGame0"));
         }
         if (keycode == Input.Keys.L) {
-            //Originator.loadFromMemento(mementos.get(mementos.size() - 1));
+            Originator.loadFromMemento(mementos.get(mementos.size() - 1));
         }
         if (keycode == Input.Keys.ESCAPE) {
             backToMenu();

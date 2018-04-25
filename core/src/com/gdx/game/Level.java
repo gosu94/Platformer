@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.gdx.game.Components.*;
+import com.gdx.game.Entity.Entity;
 import com.gdx.game.Systems.*;
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ class Level {
     }
 
     private void init(String filename) {
-        entities = new ArrayList<>();
+        entities = new ArrayList<Entity>();
         Pixmap pixmap = new Pixmap(Gdx.files.internal(filename));
 
         clouds = new Clouds(pixmap.getWidth());

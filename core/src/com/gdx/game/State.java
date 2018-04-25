@@ -1,57 +1,36 @@
 package com.gdx.game;
 
+import com.gdx.game.Entity.Entity;
+
+import java.util.List;
+
 public class State {
-//    Player player;
-//    Array<Enemy> enemies;
-//    Array<Rock> rocks;
-//    Array<Coin> coins;
-//    Integer score;
-//
-//    public State(Player player, Array<Enemy> enemies, Array<Rock> rocks, Array<Coin> coins, Integer score) {
-//        this.player = player;
-//        this.enemies = enemies;
-//        this.rocks = rocks;
-//        this.coins = coins;
-//        this.score = score;
-//    }
-//
-//    public Player getPlayer() {
-//        return player;
-//    }
-//
-//    public void setPlayer(Player player) {
-//        this.player = player;
-//    }
-//
-//    public Array<Enemy> getEnemies() {
-//        return enemies;
-//    }
-//
-//    public void setEnemies(Array<Enemy> enemies) {
-//        this.enemies = enemies;
-//    }
-//
-//    public Array<Rock> getRocks() {
-//        return rocks;
-//    }
-//
-//    public void setRocks(Array<Rock> rocks) {
-//        this.rocks = rocks;
-//    }
-//
-//    public Array<Coin> getCoins() {
-//        return coins;
-//    }
-//
-//    public void setCoins(Array<Coin> coins) {
-//        this.coins = coins;
-//    }
-//
-//    public Integer getScore() {
-//        return score;
-//    }
-//
-//    public void setScore(Integer score) {
-//        this.score = score;
-//    }
+
+    Integer score;
+    List<Entity> entityList;
+
+    public State() {
+
+    }
+
+    public State(List<Entity> entityList, Integer score) {
+        this.entityList = entityList;
+        this.score = score;
+    }
+
+    public List<Entity> getEntityList() {
+        return entityList;
+    }
+
+    public void setEntityList(List<Entity> entityList) {
+        this.entityList = entityList;
+    }
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
+    }
 }

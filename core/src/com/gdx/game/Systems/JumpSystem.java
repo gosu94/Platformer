@@ -3,7 +3,7 @@ package com.gdx.game.Systems;
 import com.gdx.game.Components.JumpComponent;
 import com.gdx.game.Components.VelocityComponent;
 import com.gdx.game.Constants;
-import com.gdx.game.Entity;
+import com.gdx.game.Entity.Entity;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public class JumpSystem extends System {
 
     public void update(float deltaTime) {
         for (Entity entity : entityList) {
-            removeIfNeccesarry(entity);
+
             if (entity.containsComponent("JumpComponent")) {
                 JumpComponent jumpComponent = (JumpComponent) entity.getComponent("JumpComponent");
                 VelocityComponent velocityComponent = (VelocityComponent) entity.getComponent("VelocityComponent");

@@ -10,6 +10,10 @@ public class VelocityComponent extends Component {
     public Vector2 acceleration;
     public Constants.VIEW_DIRECTION viewDirection;
 
+    public VelocityComponent() {
+        super("VelocityComponent");
+    }
+
     public VelocityComponent(Vector2 velocity, Vector2 maximalSpeed, Vector2 friction, Vector2 acceleration) {
         super("VelocityComponent");
         this.velocity = velocity;

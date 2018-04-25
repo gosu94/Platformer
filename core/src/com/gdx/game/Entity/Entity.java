@@ -1,4 +1,4 @@
-package com.gdx.game;
+package com.gdx.game.Entity;
 
 import com.gdx.game.Components.Component;
 
@@ -14,13 +14,16 @@ public class Entity {
     public HashMap<String, Integer> nameMap;
     public boolean toRemove;
 
-    public String name;
+    private String name;
 
+    public Entity() {
+
+    }
 
     public Entity(String name) {
         this.name = name;
-        componentList = new ArrayList<>();
-        nameMap = new HashMap<>();
+        componentList = new ArrayList<Component>();
+        nameMap = new HashMap<String, Integer>();
         id = counter;
         counter++;
         componentCounter = 0;
@@ -56,8 +59,9 @@ public class Entity {
         return false;
     }
 
-    public void remove() {
-        toRemove = true;
+    public void reset() {
+        componentList.clear();
+        name = null;
     }
 
     public String getName() {

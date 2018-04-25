@@ -10,6 +10,9 @@ public class SpriteComponent extends Component {
     public float stateTime;
     public boolean hasAnimation;
 
+    public SpriteComponent() {
+        super("SpriteComponent");
+    }
     public SpriteComponent(Animation<TextureRegion> animation) {
         super("SpriteComponent");
         this.animation = animation;

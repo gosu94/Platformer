@@ -1,7 +1,7 @@
 package com.gdx.game.Systems;
 
 import com.gdx.game.Components.Component;
-import com.gdx.game.Entity;
+import com.gdx.game.Entity.Entity;
 
 import java.util.List;
 

@@ -12,6 +12,11 @@ public class BoundsComponent extends Component {
     public float rotation;
     public Rectangle bounds;
 
+
+    public BoundsComponent() {
+        super("BoundsComponent");
+    }
+
     public BoundsComponent(Vector2 position, float dimensionX, float dimensionY) {
         super("BoundsComponent");
         this.position = position;

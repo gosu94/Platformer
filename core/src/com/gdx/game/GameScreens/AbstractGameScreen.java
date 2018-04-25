@@ -7,10 +7,10 @@ import com.gdx.game.Assets;
 
 public abstract class AbstractGameScreen implements Screen {
 
-    protected Game game;
+    public static Game game;
 
     public AbstractGameScreen(Game game) {
-        this.game = game;
+        AbstractGameScreen.game = game;
     }
 
     public abstract void render(float deltaTime);

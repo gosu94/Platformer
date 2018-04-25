@@ -1,5 +1,7 @@
 package com.gdx.game;
 
+import com.gdx.game.Entity.Entity;
+
 import java.util.ArrayList;
 import java.util.List;
 
