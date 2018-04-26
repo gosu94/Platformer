@@ -12,7 +12,7 @@ public class EnvironmentFactory {
         if ("Cloud".equals(name)) {
 
             Entity cloud = new Entity("Cloud");
-            float height = 6 + MathUtils.random(0.0f, 0.2f) * (MathUtils.randomBoolean() ? 1 : -1);
+            float height = 6 + MathUtils.random(0.0f, 1f) * (MathUtils.randomBoolean() ? 1 : -1);
             cloud.addComponent(new BoundsComponent(new Vector2(posX, height), 2f, 1));
             cloud.addComponent(new SpriteComponent(Assets.instance.levelDecoration.cloud));
 

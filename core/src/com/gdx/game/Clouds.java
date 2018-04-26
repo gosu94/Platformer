@@ -16,7 +16,7 @@ public class Clouds {
     }
 
     private void fillLevel() {
-        int distFac = 5;
+        int distFac = 2;
         int numClouds = (int) (length / distFac);
         clouds = new ArrayList<Entity>(2 * numClouds);
 

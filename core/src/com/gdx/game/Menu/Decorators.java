@@ -65,7 +65,6 @@ public class Decorators {
                 @Override
                 public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
                     super.enter(event, x, y, pointer, fromActor);
-                    System.out.println("wchodze");
                     setColor(new Color(0, 0, 255, 100));
                 }
 
