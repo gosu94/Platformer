@@ -9,8 +9,29 @@ import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Decorators {
 
+    public static class ActionCopy extends Action {
+        Action action;
+
+        public ActionCopy(Action actionToBeCopied) {
+            this.action = actionToBeCopied;
+        }
+
+        @Override
+        public boolean act(float delta) {
+            action.act(delta);
+            return true;
+        }
+
+        @Override
+        public String toString() {
+            return super.toString();
+        }
+    }
     public static class Shake extends ButtonDecorator {
         public Shake(Button buttonToBeDecorated) {
             super(buttonToBeDecorated);
@@ -26,12 +47,13 @@ public class Decorators {
         public FadeOut(Button buttonToBeDecorated) {
             super(buttonToBeDecorated);
             Array<Action> actions = buttonToBeDecorated.getActions();
-            System.out.println(actions);
-
+            List<Action> actionCopies = new ArrayList<>();
             for (Action action : actions) {
-                addAction(Actions.forever(action));
+                ActionCopy actionCopy = new ActionCopy(action);
+                System.out.println(actionCopy);
+                addAction(actionCopy);
             }
-            addAction(Actions.forever(new SequenceAction(Actions.fadeOut(3), Actions.fadeIn(3))));
+            //addAction(Actions.forever(new SequenceAction(Actions.fadeOut(3), Actions.fadeIn(3))));
 
         }
     }

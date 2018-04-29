@@ -7,18 +7,26 @@ import com.gdx.game.Components.VelocityComponent;
 import com.gdx.game.Constants;
 import com.gdx.game.Entity.Entity;
 import com.gdx.game.Globals;
+import com.gdx.game.Observer.AchievmentObserver;
+import com.gdx.game.Observer.BonusesObserver;
+import com.gdx.game.Observer.Observer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CollisionSystem extends System {
 
     private Rectangle r1;
     private Rectangle r2;
+    private List<Observer> observers;
 
     public CollisionSystem(List<Entity> entityList) {
         super(entityList);
         r1 = new Rectangle();
         r2 = new Rectangle();
+        observers = new ArrayList<>();
+        observers.add(new AchievmentObserver());
+        observers.add(new BonusesObserver());
     }
 
     public void update() {
@@ -96,9 +104,9 @@ public class CollisionSystem extends System {
 
     private void collisionWithCoin(Entity coin) {
 
-
         coin.reset();
         Globals.points += 100;
+        notifyAllObservers();
 
     }
 
@@ -111,4 +119,10 @@ public class CollisionSystem extends System {
         velocity.acceleration.x = speedX;
     }
 
+    private void notifyAllObservers() {
+        for (Observer observer : observers)
+            observer.update();
+    }
 }
+
+

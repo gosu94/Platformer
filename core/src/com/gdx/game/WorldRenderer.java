@@ -9,9 +9,11 @@ import com.badlogic.gdx.utils.Disposable;
 public class WorldRenderer implements Disposable {
 
     private OrthographicCamera camera;
-    private SpriteBatch batch;
+    public static SpriteBatch batch;
     private WorldController worldController;
     private OrthographicCamera cameraGUI;
+    public static ToastAdapter toast;
+
 
     public WorldRenderer(WorldController worldController) {
         this.worldController = worldController;
@@ -19,6 +21,7 @@ public class WorldRenderer implements Disposable {
     }
     private void init() {
         batch = new SpriteBatch();
+        toast = new ToastAdapter();
         camera = new OrthographicCamera(Constants.VIEWPORT_WIDTH,Constants.VIEWPORT_HEIGHT);
         camera.position.set(0,0,0);
 
@@ -30,10 +33,13 @@ public class WorldRenderer implements Disposable {
         cameraGUI.setToOrtho(true); // flip y-axis
         cameraGUI.update();
 
+
     }
     public void render () {
         renderWorld(batch);
         renderGui(batch);
+        toast.render(batch);
+
     }
 
     private void renderWorld(SpriteBatch batch) {

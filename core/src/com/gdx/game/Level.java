@@ -18,8 +18,6 @@ public class Level {
     public static List<Entity> entities;
     public static Entity playerEntity;
     Clouds clouds;
-    static float playerBaseX;
-    static float playerBaseY;
     static DrawingSystem drawingSystem;
     static MovingSystem movingSystem;
     static CollisionSystem collisionSystem;
@@ -33,7 +31,7 @@ public class Level {
     }
 
     private void init(String filename) {
-        entities = new ArrayList<Entity>();
+        entities = new ArrayList<>();
         Pixmap pixmap = new Pixmap(Gdx.files.internal(filename));
 
         clouds = new Clouds(pixmap.getWidth());
@@ -49,12 +47,15 @@ public class Level {
         jumpSystem = new JumpSystem(entities);
         animationSystem = new AnimationSystem(entities);
 
+
         pixmap.dispose();
         Gdx.app.debug(TAG, "level '" + filename + "' loaded");
     }
 
     public void render(SpriteBatch batch) {
         drawingSystem.update(batch);
+
+
     }
 
     void update(float deltaTime) {
@@ -66,5 +67,6 @@ public class Level {
 
 
     }
+
 
 }

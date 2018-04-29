@@ -3,6 +3,7 @@ package com.gdx.game.GameScreens;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
@@ -15,6 +16,7 @@ public class MenuScreen extends AbstractGameScreen {
 
     private static final String TAG = MenuScreen.class.getName();
     public static Skin skin;
+    public static BitmapFont font;
     private Stage stage;
     private Button playButton;
     private Button exitButton;
@@ -28,6 +30,7 @@ public class MenuScreen extends AbstractGameScreen {
 
     private void rebuildStage() {
         skin = new Skin(Gdx.files.internal("uiskin.json"));
+        font = new BitmapFont();
 
         playButton = new Decorators.FadeOut(new Decorators.Shake(new Buttons.PlayButton()));
         exitButton = new Decorators.RedHover(new Buttons.ExitButton());
