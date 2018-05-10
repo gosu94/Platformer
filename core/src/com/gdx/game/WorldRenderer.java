@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Disposable;
+import com.gdx.game.Adapter.ToastAdapter;
+import com.gdx.game.Adapter.ToastWindow;
 
 public class WorldRenderer implements Disposable {
 
@@ -12,7 +14,7 @@ public class WorldRenderer implements Disposable {
     public static SpriteBatch batch;
     private WorldController worldController;
     private OrthographicCamera cameraGUI;
-    public static ToastAdapter toast;
+    public static ToastWindow toast;
 
 
     public WorldRenderer(WorldController worldController) {

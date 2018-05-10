@@ -1,4 +1,4 @@
-package com.gdx.game;
+package com.gdx.game.Adapter;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ToastAdapter {
+public class ToastAdapter implements ToastWindow {
 
     private static final List<Toast> toasts = new LinkedList<Toast>();
     private static Toast.ToastFactory toastFactory;
@@ -20,15 +20,15 @@ public class ToastAdapter {
                 .build();
     }
 
-    public static void toastLong(String text) {
+    public void toastLong(String text) {
         toasts.add(toastFactory.create(text, Toast.Length.LONG));
     }
 
-    public static void toastShort(String text) {
+    public void toastShort(String text) {
         toasts.add(toastFactory.create(text, Toast.Length.SHORT));
     }
 
-    void render(SpriteBatch batch) {
+    public void render(SpriteBatch batch) {
         Iterator<Toast> it = toasts.iterator();
         while (it.hasNext()) {
             Toast t = it.next();

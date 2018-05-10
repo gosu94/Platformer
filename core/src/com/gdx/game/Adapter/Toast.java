@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.gdx.game;
+package com.gdx.game.Adapter;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;

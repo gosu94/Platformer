@@ -8,23 +8,70 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.badlogic.gdx.utils.Pool;
 
 public class Decorators {
 
     public static class ActionCopy extends Action {
         Action action;
 
+        protected Actor actor;
+
+        protected Actor target;
+
+        private Pool pool;
+
+
         public ActionCopy(Action actionToBeCopied) {
+            this.actor = actionToBeCopied.getActor();
+            this.target = actionToBeCopied.getTarget();
+            this.pool = actionToBeCopied.getPool();
             this.action = actionToBeCopied;
         }
 
         @Override
         public boolean act(float delta) {
-            action.act(delta);
             return true;
+        }
+
+        @Override
+        public void restart() {
+            super.restart();
+        }
+
+        @Override
+        public Actor getActor() {
+            return super.getActor();
+        }
+
+        @Override
+        public void setActor(Actor actor) {
+            super.setActor(actor);
+        }
+
+        @Override
+        public Actor getTarget() {
+            return super.getTarget();
+        }
+
+        @Override
+        public void setTarget(Actor target) {
+            super.setTarget(target);
+        }
+
+        @Override
+        public void reset() {
+            super.reset();
+        }
+
+        @Override
+        public Pool getPool() {
+            return super.getPool();
+        }
+
+        @Override
+        public void setPool(Pool pool) {
+            super.setPool(pool);
         }
 
         @Override
@@ -32,6 +79,8 @@ public class Decorators {
             return super.toString();
         }
     }
+
+
     public static class Shake extends ButtonDecorator {
         public Shake(Button buttonToBeDecorated) {
             super(buttonToBeDecorated);
@@ -47,11 +96,12 @@ public class Decorators {
         public FadeOut(Button buttonToBeDecorated) {
             super(buttonToBeDecorated);
             Array<Action> actions = buttonToBeDecorated.getActions();
-            List<Action> actionCopies = new ArrayList<>();
+            //List<Action> actionCopies = new ArrayList<>();
             for (Action action : actions) {
-                ActionCopy actionCopy = new ActionCopy(action);
-                System.out.println(actionCopy);
-                addAction(actionCopy);
+
+                action.setTarget(this);
+                //System.out.println(actionCopy);
+                addAction(new SequenceAction(action));
             }
             //addAction(Actions.forever(new SequenceAction(Actions.fadeOut(3), Actions.fadeIn(3))));
 

@@ -1,13 +1,13 @@
 package com.gdx.game.Observer;
 
 import com.gdx.game.Globals;
-import com.gdx.game.ToastAdapter;
+import com.gdx.game.WorldRenderer;
 
 public class BonusesObserver implements Observer {
     @Override
     public void update() {
         if (Globals.points == 1000)
-            ToastAdapter.toastShort("Dodatkowe zycie");
+            WorldRenderer.toast.toastShort("Dodatkowe zycie");
 
     }
 }
