@@ -4,6 +4,7 @@ import com.badlogic.gdx.*;
 import com.gdx.game.Components.JumpComponent;
 import com.gdx.game.Components.VelocityComponent;
 import com.gdx.game.Entity.Entity;
+import com.gdx.game.GameScreens.GameOverScreen;
 import com.gdx.game.GameScreens.MenuScreen;
 
 import java.util.ArrayList;
@@ -67,6 +68,9 @@ public class InputHandler extends InputAdapter {
         }
         if (keycode == Input.Keys.L) {
             Originator.loadFromMemento(mementos.get(mementos.size() - 1));
+        }
+        if (keycode == Input.Keys.G) {
+            game.setScreen(new GameOverScreen(game));
         }
         if (keycode == Input.Keys.ESCAPE) {
             backToMenu();

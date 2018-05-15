@@ -57,19 +57,10 @@ public class WorldRenderer implements Disposable {
         batch.begin();
         renderGuiScore(batch);
         renderGuiFpsCounter(batch);
+        renderGuiExtraLive(batch);
         batch.end();
     }
 
-    private void renderGuiGameOverMessage(SpriteBatch batch) {
-        float x = cameraGUI.viewportWidth / 2;
-        float y = cameraGUI.viewportHeight / 2;
-        if (worldController.lives == 0) {
-            BitmapFont fontGameOver = Assets.instance.fonts.defaultBig;
-            fontGameOver.setColor(1, 0.75f, 0.25f, 1);
-            fontGameOver.draw(batch, "GAME OVER", x, y);
-            fontGameOver.setColor(1, 1, 1, 1);
-        }
-    }
 
     private void renderGuiScore(SpriteBatch batch) {
         float x = -15;
@@ -79,6 +70,19 @@ public class WorldRenderer implements Disposable {
         Assets.instance.fonts.defaultNormal.draw(batch,
                 "" + Globals.points,
                 x + 75, y + 37);
+    }
+
+    private void renderGuiExtraLive(SpriteBatch batch) {
+        float x = cameraGUI.viewportWidth - 50 -
+                Constants.LIVES_START * 50;
+        float y = -15;
+        for (int i = 0; i < Constants.LIVES_START; i++) {
+            if (Globals.lives <= i)
+                batch.setColor(0.5f, 0.5f, 0.5f, 0.5f);
+            batch.draw(Assets.instance.player.player2,
+                    x + i * 50, y, 50, 50, 120, 100, 0.35f, -0.35f, 0);
+            batch.setColor(1, 1, 1, 1);
+        }
     }
 
     private void renderGuiFpsCounter(SpriteBatch batch) {

@@ -43,6 +43,7 @@ public class Assets implements Disposable, AssetErrorListener {
 
     public class AssetPlayer {
         public final AtlasRegion player;
+        public final AtlasRegion player2;
         public final Animation animation;
 
         Array<AtlasRegion> regions = null;
@@ -52,6 +53,7 @@ public class Assets implements Disposable, AssetErrorListener {
 
         public AssetPlayer(TextureAtlas atlas) {
             player = atlas.findRegion("player");
+            player2 = atlas.findRegion("player2");
             regions = atlas.findRegions("anim_player");
             animation = new Animation(1.0f / 10.0f, regions, Animation.PlayMode.LOOP_PINGPONG);
         }

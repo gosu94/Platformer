@@ -3,52 +3,44 @@ package com.gdx.game.GameScreens;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.gdx.game.Constants;
-import com.gdx.game.Menu.Button;
-import com.gdx.game.Menu.Buttons;
-import com.gdx.game.Menu.Decorators;
 
-public class MenuScreen extends AbstractGameScreen {
+
+public class GameOverScreen extends AbstractGameScreen {
 
     private static final String TAG = MenuScreen.class.getName();
     public static Skin skin;
-    public static BitmapFont font;
+    Text text;
+    float countdown;
     private Stage stage;
-    private Button playButton;
-    private Button exitButton;
-    private Button continueButton;
 
-
-    public MenuScreen(Game game) {
+    public GameOverScreen(Game game) {
         super(game);
     }
 
-
     private void rebuildStage() {
         skin = new Skin(Gdx.files.internal("uiskin.json"));
-        font = new BitmapFont();
-
-        continueButton = new Decorators.RedHover(new Buttons.ContinueButton());
-        playButton = new Decorators.FadeOut(new Decorators.Shake(new Buttons.PlayButton()));
-        exitButton = new Decorators.RedHover(new Buttons.ExitButton());
-
-
+        countdown = 5;
+        text = new Text();
 
         stage.clear();
-        // stage.addActor(continueButton);
-        stage.addActor(playButton);
-        // stage.addActor(continueButton);
-        stage.addActor(exitButton);
+        stage.addActor(text);
+
     }
 
     @Override
     public void render(float deltaTime) {
         Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        countdown -= deltaTime;
+
+        if (countdown < 0) game.setScreen(new MenuScreen(game));
 
         stage.act(deltaTime);
         stage.draw();
@@ -69,14 +61,48 @@ public class MenuScreen extends AbstractGameScreen {
 
     @Override
     public void hide() {
+
     }
 
     @Override
     public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+        super.resume();
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
     }
 
 
+    class Text extends Actor {
+
+        BitmapFont font;
+
+        public Text() {
+            font = new BitmapFont();
+            font.setColor(255, 255, 255, 1);
+            font.getData().setScale(3);
+
+        }
+
+        @Override
+        public void draw(Batch batch, float parentAlpha) {
+
+            font.draw(batch, "Game Over  " + (int) countdown, Constants.VIEWPORT_GUI_WIDTH / 2 - 110,
+                    Constants.VIEWPORT_GUI_HEIGHT / 2 + 30);
+        }
+
+        @Override
+        public Actor hit(float x, float y, boolean touchable) {
+            return null;
+        }
 
 
-
+    }
 }
