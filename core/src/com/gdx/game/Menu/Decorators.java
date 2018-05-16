@@ -3,6 +3,7 @@ package com.gdx.game.Menu;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
@@ -84,8 +85,8 @@ public class Decorators {
     public static class Shake extends ButtonDecorator {
         public Shake(Button buttonToBeDecorated) {
             super(buttonToBeDecorated);
-
-            addAction(Actions.forever(new SequenceAction(
+            group.addActor(this);
+            group.addAction(Actions.forever(new SequenceAction(
                     Actions.moveBy(10, 0, 0.5f),
                     Actions.moveBy(-10, 0, 0.5f))));
 
@@ -95,15 +96,17 @@ public class Decorators {
     public static class FadeOut extends ButtonDecorator {
         public FadeOut(Button buttonToBeDecorated) {
             super(buttonToBeDecorated);
-            Array<Action> actions = buttonToBeDecorated.getActions();
-            //List<Action> actionCopies = new ArrayList<>();
+            Group group2 = new Group();
+            Array<Action> actions = buttonToBeDecorated.group.getActions();
+            System.out.println("Size = " + actions.size);
+            group.addActor(buttonToBeDecorated);
+            group.addActor(this);
             for (Action action : actions) {
-
-                action.setTarget(this);
-                //System.out.println(actionCopy);
-                addAction(new SequenceAction(action));
+                System.out.println("Tu jest akcja: " + action);
+                group.addAction(action);
             }
-            //addAction(Actions.forever(new SequenceAction(Actions.fadeOut(3), Actions.fadeIn(3))));
+
+            group.addAction(Actions.forever(new SequenceAction(Actions.fadeOut(3), Actions.fadeIn(3))));
 
         }
     }

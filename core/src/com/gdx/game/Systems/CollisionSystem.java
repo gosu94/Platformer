@@ -9,6 +9,7 @@ import com.gdx.game.Entity.Entity;
 import com.gdx.game.Globals;
 import com.gdx.game.Observer.AchievmentObserver;
 import com.gdx.game.Observer.BonusesObserver;
+import com.gdx.game.Observer.DeathObserver;
 import com.gdx.game.Observer.Observer;
 
 import java.util.ArrayList;
@@ -24,9 +25,11 @@ public class CollisionSystem extends System {
         super(entityList);
         r1 = new Rectangle();
         r2 = new Rectangle();
+
         observers = new ArrayList<>();
         observers.add(new AchievmentObserver());
         observers.add(new BonusesObserver());
+        observers.add(new DeathObserver());
     }
 
     public void update() {
@@ -49,7 +52,9 @@ public class CollisionSystem extends System {
                             if ("Coin".equals(entity2.getName()) && "Player".equals(entity.getName())) {
                                 collisionWithCoin(entity2);
                             }
-
+                            if ("Enemy".equals(entity2.getName()) && "Player".equals(entity.getName())) {
+                                collisionPlayerWithEnemy(entity, entity2);
+                            }
                         }
                     }
 
@@ -100,6 +105,34 @@ public class CollisionSystem extends System {
         } else {
             bounds.position.y = rockBounds.position.y + rockBounds.bounds.height;
         }
+    }
+
+    private void collisionPlayerWithEnemy(Entity player, Entity enemy) {
+        BoundsComponent playerBounds = (BoundsComponent) getComponentOfEntity(player, "BoundsComponent");
+        BoundsComponent enemyBounds = (BoundsComponent) getComponentOfEntity(enemy, "BoundsComponent");
+        JumpComponent playerJump = (JumpComponent) player.getComponent("JumpComponent");
+
+        float pX = playerBounds.position.x, pY = playerBounds.position.y;
+        float pW = pX + playerBounds.bounds.width, pH = pY + playerBounds.bounds.height;
+
+        float eX = enemyBounds.position.x, eY = enemyBounds.position.y;
+        float eW = eX + enemyBounds.bounds.width, eH = eY + enemyBounds.bounds.height;
+
+
+        if (pY < eH - 0.1 && pH - 0.1 > eY) {
+            if (pY < eH - 0.2) {
+                Globals.lives -= 1;
+                playerBounds.position.x = Globals.startingPoint.x;
+                playerBounds.position.y = Globals.startingPoint.y;
+                notifyAllObservers();
+            } else {
+                enemy.removeComponent("CollisionComponent");
+                playerJump.jumpState = Constants.JUMP_STATE.GROUNDED;
+                playerJump.jumpKeyPressed = true;
+
+            }
+        }
+
     }
 
     private void collisionWithCoin(Entity coin) {

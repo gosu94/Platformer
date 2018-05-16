@@ -19,7 +19,7 @@ public class InputHandler extends InputAdapter {
     static int score;
 
     static State state;
-    static private Game game;
+    static public Game game;
 
     public InputHandler(Game game) {
         Gdx.input.setInputProcessor(this);

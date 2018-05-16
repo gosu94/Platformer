@@ -29,9 +29,12 @@ public class MovingSystem extends System {
                     velocityComponent.viewDirection = velocityComponent.velocity.x < 0 ? Constants.VIEW_DIRECTION.LEFT :
                             Constants.VIEW_DIRECTION.RIGHT;
                 }
-
-                if ("Player".equals(entity.getName()))
-                    if (boundsComponent.position.y < -4) boundsComponent.position.y = 7;
+                if (boundsComponent.position.y < -4) {
+                    if ("Player".equals(entity.getName()))
+                        boundsComponent.position.y = 7;
+                    else
+                        entity.reset();
+                }
             }
         }
     }

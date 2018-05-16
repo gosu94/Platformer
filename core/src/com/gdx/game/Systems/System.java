@@ -21,12 +21,7 @@ abstract public class System {
         return entity.componentList.get(entity.nameMap.get(componentName));
     }
 
-    public void removeIfNeccesarry(Entity entity) {
-        if (entity.toRemove) {
-            entityList.remove(entity);
-        }
 
-    }
 
 
 }

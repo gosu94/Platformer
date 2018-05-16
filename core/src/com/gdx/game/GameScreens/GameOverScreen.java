@@ -94,7 +94,7 @@ public class GameOverScreen extends AbstractGameScreen {
         @Override
         public void draw(Batch batch, float parentAlpha) {
 
-            font.draw(batch, "Game Over  " + (int) countdown, Constants.VIEWPORT_GUI_WIDTH / 2 - 110,
+            font.draw(batch, "Game Over  " + (int) countdown, Constants.VIEWPORT_GUI_WIDTH / 2 - 115,
                     Constants.VIEWPORT_GUI_HEIGHT / 2 + 30);
         }
 

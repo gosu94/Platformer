@@ -40,7 +40,7 @@ public class MenuScreen extends AbstractGameScreen {
 
         stage.clear();
         // stage.addActor(continueButton);
-        stage.addActor(playButton);
+        stage.addActor(playButton.group);
         // stage.addActor(continueButton);
         stage.addActor(exitButton);
     }

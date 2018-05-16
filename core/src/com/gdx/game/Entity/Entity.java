@@ -12,7 +12,6 @@ public class Entity {
     public List<Component> componentList;
     public int componentCounter;
     public HashMap<String, Integer> nameMap;
-    public boolean toRemove;
 
     private String name;
 
@@ -27,7 +26,6 @@ public class Entity {
         id = counter;
         counter++;
         componentCounter = 0;
-        toRemove = false;
     }
 
     public void addComponent(Component component) {
@@ -39,7 +37,7 @@ public class Entity {
     public void removeComponent(String componentName) {
         for (Component component : componentList) {
             if (component.name.equals(componentName))
-                componentList.remove(component);
+                component.setName("toRemove");
         }
     }
 

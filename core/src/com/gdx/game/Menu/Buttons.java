@@ -36,6 +36,7 @@ public class Buttons {
             super("New Game", MenuScreen.skin);
             setBounds();
             addAction(Actions.fadeIn(10));
+            group.addActor(this);
             //setDisabled(true);
         }
 

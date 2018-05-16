@@ -70,6 +70,10 @@ public class WorldRenderer implements Disposable {
         Assets.instance.fonts.defaultNormal.draw(batch,
                 "" + Globals.points,
                 x + 75, y + 37);
+        Assets.instance.fonts.defaultNormal.draw(batch, "x:" + (int) Level.playerBounds.position.x +
+                " y:" + (int) Level.playerBounds.position.y, x + 15, y + 74);
+        //  Assets.instance.fonts.defaultNormal.draw(batch,"x+w:"+(int)(Level.playerBounds.position.x+Level.playerBounds.bounds.width)+
+        //          " y+h:"+(int)(Level.playerBounds.position.y+Level.playerBounds.bounds.height),x+15,y+111);
     }
 
     private void renderGuiExtraLive(SpriteBatch batch) {

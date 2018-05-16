@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.gdx.game.Assets;
 import com.gdx.game.Components.*;
 import com.gdx.game.Entity.Entity;
+import com.gdx.game.Globals;
 import com.gdx.game.Level;
 
 import java.util.ArrayList;
@@ -96,7 +97,7 @@ public class LevelParser {
             Vector2 maximalSpeed = new Vector2(4, 9);
             Vector2 friction = new Vector2(12f, 0);
             Vector2 acceleration = new Vector2(0, -25f);
-
+            Globals.startingPoint = new Vector2(pixelX, baseHeight + offsetHeight);
             player.addComponent(new BoundsComponent(new Vector2(pixelX, baseHeight + offsetHeight), 1, 1));
             player.addComponent(new VelocityComponent(velocity, maximalSpeed, friction, acceleration));
             player.addComponent(new SpriteComponent(Assets.instance.player.animation));

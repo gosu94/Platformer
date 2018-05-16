@@ -3,6 +3,8 @@ package com.gdx.game.GameScreens;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.gdx.game.Constants;
+import com.gdx.game.Globals;
 import com.gdx.game.WorldController;
 import com.gdx.game.WorldRenderer;
 
@@ -36,6 +38,7 @@ public class GameScreen extends AbstractGameScreen {
 
     @Override
     public void show() {
+        Globals.lives = Constants.LIVES_START;
         worldController = new WorldController(game);
         worldRenderer = new WorldRenderer(worldController);
         Gdx.input.setCatchBackKey(true);

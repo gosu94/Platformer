@@ -15,11 +15,11 @@ public class WorldController {
     static int score;
     int lives;
     State state;
-    private Game game;
+    public static Game game;
 
 
     public WorldController(Game game) {
-        this.game = game;
+        WorldController.game = game;
         init();
     }
 
