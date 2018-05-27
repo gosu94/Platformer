@@ -96,6 +96,7 @@ public class Decorators {
     public static class FadeOut extends ButtonDecorator {
         public FadeOut(Button buttonToBeDecorated) {
             super(buttonToBeDecorated);
+            Action actionParaell;
             Group group2 = new Group();
             Array<Action> actions = buttonToBeDecorated.group.getActions();
             System.out.println("Size = " + actions.size);
@@ -103,10 +104,10 @@ public class Decorators {
             group.addActor(this);
             for (Action action : actions) {
                 System.out.println("Tu jest akcja: " + action);
-                group.addAction(action);
+                group.addAction(Actions.parallel(action, new SequenceAction(Actions.fadeOut(3), Actions.fadeIn(3))));
             }
 
-            group.addAction(Actions.forever(new SequenceAction(Actions.fadeOut(3), Actions.fadeIn(3))));
+            // group.addAction(Actions.forever(new SequenceAction(Actions.fadeOut(3), Actions.fadeIn(3))));
 
         }
     }

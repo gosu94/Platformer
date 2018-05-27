@@ -8,7 +8,7 @@ import com.gdx.game.GdxGame;
 
 public class DesktopLauncher {
 
-    private static boolean rebuildAtlas = false;
+    private static boolean rebuildAtlas = true;
 
 	public static void main (String[] arg) {
 
