@@ -44,18 +44,19 @@ public class Assets implements Disposable, AssetErrorListener {
     public class AssetPlayer {
         public final AtlasRegion player;
         public final AtlasRegion player2;
-        public final Animation animation;
+        public final Animation runningAnimation;
+        public final Animation standingAnimation;
 
-        Array<AtlasRegion> regions = null;
-        AtlasRegion region = null;
-
-
+        Array<AtlasRegion> runningRegions = null;
+        Array<AtlasRegion> standingRegions = null;
 
         public AssetPlayer(TextureAtlas atlas) {
             player = atlas.findRegion("player");
             player2 = atlas.findRegion("player2");
-            regions = atlas.findRegions("anim_player");
-            animation = new Animation(1.0f / 10.0f, regions, Animation.PlayMode.LOOP_PINGPONG);
+            runningRegions = atlas.findRegions("anim_player");
+            standingRegions = atlas.findRegions("stand");
+            runningAnimation = new Animation(1.0f / 10.0f, runningRegions, Animation.PlayMode.LOOP_PINGPONG);
+            standingAnimation = new Animation(1.0f / 12.0f, standingRegions, Animation.PlayMode.LOOP_PINGPONG);
         }
     }
 

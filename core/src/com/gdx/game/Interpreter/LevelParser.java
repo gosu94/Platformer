@@ -100,7 +100,7 @@ public class LevelParser {
             Globals.startingPoint = new Vector2(pixelX, baseHeight + offsetHeight);
             player.addComponent(new BoundsComponent(new Vector2(pixelX, baseHeight + offsetHeight), 1, 1));
             player.addComponent(new VelocityComponent(velocity, maximalSpeed, friction, acceleration));
-            player.addComponent(new SpriteComponent(Assets.instance.player.animation));
+            player.addComponent(new SpriteComponent(Assets.instance.player.runningAnimation, Assets.instance.player.standingAnimation));
             player.addComponent(new CollisionComponent());
             player.addComponent(new JumpComponent());
 

@@ -7,6 +7,7 @@ import com.gdx.game.Components.SpriteComponent;
 import com.gdx.game.Components.VelocityComponent;
 import com.gdx.game.Constants;
 import com.gdx.game.Entity.Entity;
+import com.gdx.game.Globals;
 
 import java.util.List;
 
@@ -65,13 +66,33 @@ public class DrawingSystem extends System {
                     velocity.viewDirection == Constants.VIEW_DIRECTION.LEFT, false);
         } else {
 
-            TextureRegion reg = sprite.animation.getKeyFrame(sprite.stateTime, true);
 
-            batch.draw(reg.getTexture(), bounds.position.x, bounds.position.y, bounds.origin.x,
-                    bounds.origin.y, bounds.dimension.x, bounds.dimension.y, bounds.scale.x, bounds.scale.y,
-                    bounds.rotation, reg.getRegionX(), reg.getRegionY(), reg.getRegionWidth(),
-                    reg.getRegionHeight(), velocity.viewDirection == Constants.VIEW_DIRECTION.LEFT,
-                    false);
+            if (sprite.hasStandingAnimation) {
+
+                if (Globals.isPlayerMoving) {
+                    TextureRegion reg = sprite.animation.getKeyFrame(sprite.stateTime, true);
+                    batch.draw(reg.getTexture(), bounds.position.x, bounds.position.y, bounds.origin.x,
+                            bounds.origin.y, bounds.dimension.x, bounds.dimension.y, bounds.scale.x, bounds.scale.y,
+                            bounds.rotation, reg.getRegionX(), reg.getRegionY(), reg.getRegionWidth(),
+                            reg.getRegionHeight(), velocity.viewDirection == Constants.VIEW_DIRECTION.LEFT,
+                            false);
+                } else {
+                    TextureRegion reg2 = sprite.standingAnimation.getKeyFrame(sprite.stateTime, true);
+                    batch.draw(reg2.getTexture(), bounds.position.x, bounds.position.y, bounds.origin.x,
+                            bounds.origin.y, bounds.dimension.x, bounds.dimension.y, bounds.scale.x, bounds.scale.y,
+                            bounds.rotation, reg2.getRegionX(), reg2.getRegionY(), reg2.getRegionWidth(),
+                            reg2.getRegionHeight(), velocity.viewDirection == Constants.VIEW_DIRECTION.LEFT,
+                            false);
+                }
+
+            } else {
+                TextureRegion reg = sprite.animation.getKeyFrame(sprite.stateTime, true);
+                batch.draw(reg.getTexture(), bounds.position.x, bounds.position.y, bounds.origin.x,
+                        bounds.origin.y, bounds.dimension.x, bounds.dimension.y, bounds.scale.x, bounds.scale.y,
+                        bounds.rotation, reg.getRegionX(), reg.getRegionY(), reg.getRegionWidth(),
+                        reg.getRegionHeight(), velocity.viewDirection == Constants.VIEW_DIRECTION.LEFT,
+                        false);
+            }
         }
     }
 

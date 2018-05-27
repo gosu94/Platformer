@@ -35,14 +35,17 @@ public class InputHandler extends InputAdapter {
         VelocityComponent velocityComponent = (VelocityComponent) player.getComponent("VelocityComponent");
         JumpComponent jumpComponent = (JumpComponent) player.getComponent("JumpComponent");
 
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             velocityComponent.velocity.x = -velocityComponent.maximalSpeed.x;
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
+            Globals.isPlayerMoving = true;
+        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             velocityComponent.velocity.x = velocityComponent.maximalSpeed.x;
+            Globals.isPlayerMoving = true;
+        } else {
+            Globals.isPlayerMoving = false;
+        }
 
 
-        //Level.player.setJumping(true);
-//Level.player.setJumping(false);
         jumpComponent.jumpKeyPressed = Gdx.input.isKeyPressed(Input.Keys.SPACE);
 
 
