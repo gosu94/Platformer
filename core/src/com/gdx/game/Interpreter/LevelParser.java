@@ -62,30 +62,47 @@ public class LevelParser {
         }
     }
 
-    static class RockPixel extends PixelData {
+    public static class RockPixel extends PixelData {
 
         public RockPixel(PIXEL_TYPE blockType) {
             super(blockType);
+        }
+
+        public static void addComponents(Entity entity, float x, float y) {
+            Vector2 position = new Vector2(x, y);
+
+            entity.addComponent(new BoundsComponent(position, 1, 1));
+            entity.addComponent(new SpriteComponent(Assets.instance.rock.rock));
+            entity.addComponent(new CollisionComponent());
         }
 
         @Override
         public void interpret(int pixelX, float baseHeight) {
             float offsetHeight = -4f;
             Entity rock = new Entity("Rock");
-            Vector2 position = new Vector2(pixelX, baseHeight + offsetHeight);
-
-            rock.addComponent(new BoundsComponent(position, 1, 1));
-            rock.addComponent(new SpriteComponent(Assets.instance.rock.rock));
-            rock.addComponent(new CollisionComponent());
-
+            addComponents(rock, pixelX, baseHeight + offsetHeight);
             Level.entities.add(rock);
         }
+
     }
 
-    static class PlayerPixel extends PixelData {
+    public static class PlayerPixel extends PixelData {
 
         public PlayerPixel(PIXEL_TYPE blockType) {
             super(blockType);
+        }
+
+        public static void addComponents(Entity entity, float x, float y) {
+            Vector2 velocity = new Vector2(0, 0);
+            Vector2 maximalSpeed = new Vector2(4, 9);
+            Vector2 friction = new Vector2(12f, 0);
+            Vector2 acceleration = new Vector2(0, -25f);
+            Globals.startingPoint = new Vector2(x, y);
+            entity.addComponent(new VelocityComponent(velocity, maximalSpeed, friction, acceleration));
+            entity.addComponent(new BoundsComponent(new Vector2(x, y), 1, 1));
+            entity.addComponent(new SpriteComponent(Assets.instance.player.runningAnimation, Assets.instance.player.standingAnimation));
+            entity.addComponent(new CollisionComponent());
+            entity.addComponent(new JumpComponent());
         }
 
         @Override
@@ -93,26 +110,23 @@ public class LevelParser {
             float offsetHeight = -4.0f;
 
             Entity player = new Entity("Player");
-            Vector2 velocity = new Vector2(0, 0);
-            Vector2 maximalSpeed = new Vector2(4, 9);
-            Vector2 friction = new Vector2(12f, 0);
-            Vector2 acceleration = new Vector2(0, -25f);
-            Globals.startingPoint = new Vector2(pixelX, baseHeight + offsetHeight);
-            player.addComponent(new BoundsComponent(new Vector2(pixelX, baseHeight + offsetHeight), 1, 1));
-            player.addComponent(new VelocityComponent(velocity, maximalSpeed, friction, acceleration));
-            player.addComponent(new SpriteComponent(Assets.instance.player.runningAnimation, Assets.instance.player.standingAnimation));
-            player.addComponent(new CollisionComponent());
-            player.addComponent(new JumpComponent());
+            addComponents(player, pixelX, baseHeight + offsetHeight);
 
             Level.playerEntity = player;
             Level.entities.add(player);
         }
     }
 
-    static class CoinPixel extends PixelData {
+    public static class CoinPixel extends PixelData {
 
         public CoinPixel(PIXEL_TYPE blockType) {
             super(blockType);
+        }
+
+        public static void addComponents(Entity entity, float x, float y) {
+            entity.addComponent(new BoundsComponent(new Vector2(x, y), 0.75f, 0.75f));
+            entity.addComponent(new SpriteComponent(Assets.instance.coin.animGoldCoin));
+            entity.addComponent(new CollisionComponent());
         }
 
         @Override
@@ -120,19 +134,28 @@ public class LevelParser {
             float offsetHeight = -3.2f;
 
             Entity coin = new Entity("Coin");
-
-            coin.addComponent(new BoundsComponent(new Vector2(pixelX, baseHeight + offsetHeight), 0.75f, 0.75f));
-            coin.addComponent(new SpriteComponent(Assets.instance.coin.animGoldCoin));
-            coin.addComponent(new CollisionComponent());
+            addComponents(coin, pixelX, baseHeight + offsetHeight);
 
             Level.entities.add(coin);
         }
     }
 
-    static class EnemyPixel extends PixelData {
+    public static class EnemyPixel extends PixelData {
 
         public EnemyPixel(PIXEL_TYPE blockType) {
             super(blockType);
+        }
+
+        public static void addComponents(Entity entity, float x, float y) {
+            Vector2 velocity = new Vector2(4, 1);
+            Vector2 maximalSpeed = new Vector2(4, 8);
+            Vector2 friction = new Vector2();
+            Vector2 acceleration = new Vector2(8, -25);
+
+            entity.addComponent(new BoundsComponent(new Vector2(x, y), 1, 1));
+            entity.addComponent(new VelocityComponent(velocity, maximalSpeed, friction, acceleration));
+            entity.addComponent(new SpriteComponent(Assets.instance.player.player));
+            entity.addComponent(new CollisionComponent());
         }
 
         @Override
@@ -141,16 +164,7 @@ public class LevelParser {
             float offsetHeight = 1;
 
             Entity enemy = new Entity("Enemy");
-
-            Vector2 velocity = new Vector2(4, 1);
-            Vector2 maximalSpeed = new Vector2(4, 8);
-            Vector2 friction = new Vector2();
-            Vector2 acceleration = new Vector2(8, -25);
-
-            enemy.addComponent(new BoundsComponent(new Vector2(pixelX, baseHeight + offsetHeight), 1, 1));
-            enemy.addComponent(new VelocityComponent(velocity, maximalSpeed, friction, acceleration));
-            enemy.addComponent(new SpriteComponent(Assets.instance.player.player));
-            enemy.addComponent(new CollisionComponent());
+            addComponents(enemy, pixelX, baseHeight + offsetHeight);
 
             Level.entities.add(enemy);
         }

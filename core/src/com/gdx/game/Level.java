@@ -47,15 +47,12 @@ public class Level {
         jumpSystem = new JumpSystem(entities);
         animationSystem = new AnimationSystem(entities);
 
-
         pixmap.dispose();
         Gdx.app.debug(TAG, "level '" + filename + "' loaded");
     }
 
     public void render(SpriteBatch batch) {
         drawingSystem.update(batch);
-
-
     }
 
     void update(float deltaTime) {

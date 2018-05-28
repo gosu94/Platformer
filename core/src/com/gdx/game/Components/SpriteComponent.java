@@ -23,7 +23,7 @@ public class SpriteComponent extends Component {
         this.hasAnimation = true;
         this.hasStandingAnimation = true;
         this.stateTime = 0;
-        System.out.println("wchodze tu do kurwy raz i standing animation = " + hasStandingAnimation);
+
 
     }
     public SpriteComponent(Animation<TextureRegion> animation) {

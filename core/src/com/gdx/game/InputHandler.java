@@ -7,15 +7,11 @@ import com.gdx.game.Entity.Entity;
 import com.gdx.game.GameScreens.GameOverScreen;
 import com.gdx.game.GameScreens.MenuScreen;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static com.gdx.game.WorldController.cameraHandler;
 
 public class InputHandler extends InputAdapter {
 
     private static final String TAG = WorldController.class.getName();
-    static List<Memento> mementos = new ArrayList<Memento>();
     static int score;
 
     static State state;
@@ -63,14 +59,20 @@ public class InputHandler extends InputAdapter {
             Gdx.app.debug(TAG, "Camera follow enabled: " + cameraHandler.hasTarget());
         }
         if (keycode == Input.Keys.S) {
-            state = new State(Level.entities, score);
-            if (mementos != null)
-                mementos.add(Originator.saveToMemento(state, "savedGame" + Integer.toString(mementos.size() + 1)));
-            else
-                mementos.add(Originator.saveToMemento(state, "savedGame0"));
+            Thread savingThread = new Thread() {
+                public void run() {
+                    if (Globals.mementos != null)
+                        Globals.mementos.add(Originator.saveToMemento(state, "savedGame" + Integer.toString(Globals.mementos.size() + 1)));
+                    else
+                        Globals.mementos.add(Originator.saveToMemento(state, "savedGame1"));
+                }
+            };
+            state = new State(Level.entities, Globals.points);
+            savingThread.start();
+
         }
         if (keycode == Input.Keys.L) {
-            Originator.loadFromMemento(mementos.get(mementos.size() - 1));
+            Originator.loadFromMemento(Globals.mementos.get(Globals.mementos.size() - 1));
         }
         if (keycode == Input.Keys.G) {
             game.setScreen(new GameOverScreen(game));
@@ -111,4 +113,6 @@ public class InputHandler extends InputAdapter {
         y += cameraHandler.getPosition().y;
         cameraHandler.setPosition(x, y);
     }
+
+
 }

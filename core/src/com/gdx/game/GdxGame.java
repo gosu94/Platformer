@@ -13,7 +13,7 @@ public class GdxGame extends Game {
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
         // Load assets
         Assets.instance.init(new AssetManager());
-
+        Globals.mementos = Originator.loadMementos();
         // Start game at menu screen
         setScreen(new MenuScreen(this));
     }

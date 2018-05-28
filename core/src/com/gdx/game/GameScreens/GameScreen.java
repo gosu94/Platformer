@@ -3,10 +3,7 @@ package com.gdx.game.GameScreens;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.gdx.game.Constants;
-import com.gdx.game.Globals;
-import com.gdx.game.WorldController;
-import com.gdx.game.WorldRenderer;
+import com.gdx.game.*;
 
 public class GameScreen extends AbstractGameScreen {
 
@@ -47,18 +44,19 @@ public class GameScreen extends AbstractGameScreen {
     @Override
     public void hide() {
         worldRenderer.dispose();
+        Originator.saveMementos(Globals.mementos);
         Gdx.input.setCatchBackKey(false);
     }
 
     @Override
     public void pause() {
-        paused = true;
+        //paused = true;
     }
 
     @Override
     public void resume() {
-        super.resume();
+        //super.resume();
         // Only called on Android!
-        paused = false;
+        //paused = false;
     }
 }

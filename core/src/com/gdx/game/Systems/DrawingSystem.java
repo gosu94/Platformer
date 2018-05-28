@@ -33,8 +33,6 @@ public class DrawingSystem extends System {
 
             }
         }
-
-
     }
 
     private void drawSprite(Entity entity, SpriteComponent sprite, BoundsComponent bounds, Batch batch) {
