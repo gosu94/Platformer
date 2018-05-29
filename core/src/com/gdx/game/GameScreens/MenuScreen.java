@@ -8,9 +8,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.gdx.game.Constants;
+import com.gdx.game.Globals;
 import com.gdx.game.Menu.Button;
 import com.gdx.game.Menu.Buttons;
-import com.gdx.game.Menu.Decorators;
 
 public class MenuScreen extends AbstractGameScreen {
 
@@ -32,16 +32,16 @@ public class MenuScreen extends AbstractGameScreen {
         skin = new Skin(Gdx.files.internal("uiskin.json"));
         font = new BitmapFont();
 
-        continueButton = new Decorators.RedHover(new Buttons.ContinueButton());
-        playButton = new Decorators.FadeOut(new Decorators.Shake(new Buttons.PlayButton()));
-        exitButton = new Decorators.RedHover(new Buttons.ExitButton());
+        continueButton = new Buttons.ContinueButton();
+        playButton = new Buttons.PlayButton();
+        exitButton = new Buttons.ExitButton();
 
 
 
         stage.clear();
-        // stage.addActor(continueButton);
+        if (Globals.mementos.size() > 0)
+            stage.addActor(continueButton);
         stage.addActor(playButton.group);
-        // stage.addActor(continueButton);
         stage.addActor(exitButton);
     }
 

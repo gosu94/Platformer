@@ -10,24 +10,23 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.gdx.game.Constants;
+import com.gdx.game.Globals;
 
-
-public class GameOverScreen extends AbstractGameScreen {
-
+public class FinishScreen extends AbstractGameScreen {
     private static final String TAG = MenuScreen.class.getName();
     public static Skin skin;
-    Text text;
+    FinishScreen.Text text;
     float countdown;
     private Stage stage;
 
-    public GameOverScreen(Game game) {
+    public FinishScreen(Game game) {
         super(game);
     }
 
     private void rebuildStage() {
         skin = new Skin(Gdx.files.internal("uiskin.json"));
         countdown = 5;
-        text = new Text();
+        text = new FinishScreen.Text();
 
         stage.clear();
         stage.addActor(text);
@@ -40,7 +39,11 @@ public class GameOverScreen extends AbstractGameScreen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         countdown -= deltaTime;
 
-        if (countdown < 0) game.setScreen(new MenuScreen(game));
+        if (countdown < 0) {
+            game.setScreen(new MenuScreen(game));
+            Globals.lives = Constants.LIVES_START;
+            Globals.points = 0;
+        }
 
         stage.act(deltaTime);
         stage.draw();
@@ -94,15 +97,17 @@ public class GameOverScreen extends AbstractGameScreen {
         @Override
         public void draw(Batch batch, float parentAlpha) {
 
-            font.draw(batch, "Game Over  ", Constants.VIEWPORT_GUI_WIDTH / 2 - 115,
-                    Constants.VIEWPORT_GUI_HEIGHT / 2 + 30);
+            font.draw(batch, "Congratulations!!!", Constants.VIEWPORT_GUI_WIDTH / 2 - 180,
+                    Constants.VIEWPORT_GUI_HEIGHT / 2 + 80);
+            font.draw(batch, "You have finished the game  ", Constants.VIEWPORT_GUI_WIDTH / 2 - 280,
+                    Constants.VIEWPORT_GUI_HEIGHT / 2 + 20);
+            font.draw(batch, "You record score is " + Globals.points, Constants.VIEWPORT_GUI_WIDTH / 2 - 230,
+                    Constants.VIEWPORT_GUI_HEIGHT / 2 - 40);
         }
 
         @Override
         public Actor hit(float x, float y, boolean touchable) {
             return null;
         }
-
-
     }
 }

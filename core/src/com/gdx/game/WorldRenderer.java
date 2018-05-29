@@ -56,7 +56,7 @@ public class WorldRenderer implements Disposable {
         batch.setProjectionMatrix(cameraGUI.combined);
         batch.begin();
         renderGuiScore(batch);
-        renderGuiFpsCounter(batch);
+        //renderGuiFpsCounter(batch);
         renderGuiExtraLive(batch);
         batch.end();
     }

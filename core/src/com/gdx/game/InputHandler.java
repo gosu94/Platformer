@@ -4,8 +4,10 @@ import com.badlogic.gdx.*;
 import com.gdx.game.Components.JumpComponent;
 import com.gdx.game.Components.VelocityComponent;
 import com.gdx.game.Entity.Entity;
-import com.gdx.game.GameScreens.GameOverScreen;
+import com.gdx.game.GameScreens.FinishScreen;
 import com.gdx.game.GameScreens.MenuScreen;
+import com.gdx.game.Memento.Originator;
+import com.gdx.game.Memento.State;
 
 import static com.gdx.game.WorldController.cameraHandler;
 
@@ -67,7 +69,7 @@ public class InputHandler extends InputAdapter {
                         Globals.mementos.add(Originator.saveToMemento(state, "savedGame1"));
                 }
             };
-            state = new State(Level.entities, Globals.points);
+            state = new State(Level.entities, Globals.points, Globals.lives);
             savingThread.start();
 
         }
@@ -75,7 +77,7 @@ public class InputHandler extends InputAdapter {
             Originator.loadFromMemento(Globals.mementos.get(Globals.mementos.size() - 1));
         }
         if (keycode == Input.Keys.G) {
-            game.setScreen(new GameOverScreen(game));
+            game.setScreen(new FinishScreen(game));
         }
         if (keycode == Input.Keys.ESCAPE) {
             backToMenu();

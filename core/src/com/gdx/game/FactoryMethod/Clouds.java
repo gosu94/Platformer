@@ -1,6 +1,7 @@
-package com.gdx.game;
+package com.gdx.game.FactoryMethod;
 
 import com.gdx.game.Entity.Entity;
+import com.gdx.game.Level;
 
 import java.util.ArrayList;
 import java.util.List;

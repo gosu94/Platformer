@@ -19,7 +19,9 @@ public class Assets implements Disposable, AssetErrorListener {
     public AssetGoldCoin coin;
     public TextureAtlas atlas;
     public AssetPlayer player;
+    public AssetEnemy enemy;
     public AssetRock rock;
+    public AssetClover clover;
     public AssetLevelDecoration levelDecoration;
 
     private Assets() {
@@ -41,6 +43,27 @@ public class Assets implements Disposable, AssetErrorListener {
         Gdx.app.error(TAG, "Couldn't load asset '" + asset.fileName + "'", throwable);
     }
 
+    public void init(AssetManager assetManager) {
+        Gdx.app.debug(TAG, "# of assets loaded: " + assetManager.getAssetNames().size);
+
+        for (String a : assetManager.getAssetNames())
+            Gdx.app.debug(TAG, "asset: " + a);
+
+        atlas = new TextureAtlas(Constants.TEXTURE_ATLAS_OBJECTS);//assetManager.get(Constants.TEXTURE_ATLAS_OBJECTS);
+        for (Texture t : atlas.getTextures()) {
+            t.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        }
+
+        coin = new AssetGoldCoin(atlas);
+        player = new AssetPlayer(atlas);
+        enemy = new AssetEnemy(atlas);
+        rock = new AssetRock(atlas);
+        clover = new AssetClover(atlas);
+        levelDecoration = new AssetLevelDecoration(atlas);
+        fonts = new AssetFonts();
+    }
+
+
     public class AssetPlayer {
         public final AtlasRegion player;
         public final AtlasRegion player2;
@@ -60,22 +83,17 @@ public class Assets implements Disposable, AssetErrorListener {
         }
     }
 
-    public void init(AssetManager assetManager) {
-        Gdx.app.debug(TAG, "# of assets loaded: " + assetManager.getAssetNames().size);
+    public class AssetEnemy {
 
-        for (String a : assetManager.getAssetNames())
-            Gdx.app.debug(TAG, "asset: " + a);
+        public final Animation animation;
 
-        atlas = new TextureAtlas(Constants.TEXTURE_ATLAS_OBJECTS);//assetManager.get(Constants.TEXTURE_ATLAS_OBJECTS);
-        for (Texture t : atlas.getTextures()) {
-            t.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
+        Array<AtlasRegion> regions = null;
+
+        public AssetEnemy(TextureAtlas atlas) {
+            regions = atlas.findRegions("enemy");
+            animation = new Animation(1.0f / 10.0f, regions, Animation.PlayMode.LOOP_PINGPONG);
         }
-
-        coin = new AssetGoldCoin(atlas);
-        player = new AssetPlayer(atlas);
-        rock = new AssetRock(atlas);
-        levelDecoration = new AssetLevelDecoration(atlas);
-        fonts = new AssetFonts();
     }
 
 
@@ -84,8 +102,16 @@ public class Assets implements Disposable, AssetErrorListener {
         public final AtlasRegion rockUnder;
 
         public AssetRock(TextureAtlas atlas) {
-            rock = atlas.findRegion("rock2");
+            rock = atlas.findRegion("rock");
             rockUnder = atlas.findRegion("rockUnder");
+        }
+    }
+
+    public class AssetClover {
+        public final AtlasRegion clover;
+
+        public AssetClover(TextureAtlas atlas) {
+            clover = atlas.findRegion("clover");
         }
     }
 
@@ -107,7 +133,7 @@ public class Assets implements Disposable, AssetErrorListener {
             goldCoin = atlas.findRegion("item_gold_coin");
             // Animation: Gold Coin
             Array<AtlasRegion> regions =
-                    atlas.findRegions("anim_gold_coin");
+                    atlas.findRegions("Gold");
             AtlasRegion region = regions.first();
             for (int i = 0; i < 10; i++)
                 regions.insert(0, region);

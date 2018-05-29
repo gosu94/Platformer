@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.gdx.game.Components.BoundsComponent;
 import com.gdx.game.Entity.Entity;
+import com.gdx.game.FactoryMethod.Clouds;
 import com.gdx.game.Interpreter.LevelParser;
 import com.gdx.game.Systems.*;
 
@@ -23,7 +24,7 @@ public class Level {
     static CollisionSystem collisionSystem;
     static JumpSystem jumpSystem;
     static AnimationSystem animationSystem;
-    static BoundsComponent playerBounds;
+    public static BoundsComponent playerBounds;
 
 
     Level(String filename) {

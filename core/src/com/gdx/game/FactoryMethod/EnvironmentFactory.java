@@ -1,7 +1,8 @@
-package com.gdx.game;
+package com.gdx.game.FactoryMethod;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.gdx.game.Assets;
 import com.gdx.game.Components.BoundsComponent;
 import com.gdx.game.Components.SpriteComponent;
 import com.gdx.game.Entity.Entity;

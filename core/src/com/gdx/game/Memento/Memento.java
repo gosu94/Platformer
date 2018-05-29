@@ -1,11 +1,14 @@
-package com.gdx.game;
+package com.gdx.game.Memento;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Json;
 import com.gdx.game.Components.BoundsComponent;
 import com.gdx.game.Entity.Entity;
+import com.gdx.game.Globals;
 import com.gdx.game.Interpreter.LevelParser;
+import com.gdx.game.Level;
+import com.gdx.game.WorldController;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -64,6 +67,11 @@ public class Memento implements Serializable {
         entityList.add(player);
         Level.playerEntity = player;
         Level.playerBounds = (BoundsComponent) player.getComponent("BoundsComponent");
+
+        Entity clover = new Entity("Clover");
+        LevelParser.CloverPixel.addComponents(clover, loadedState.cloverPos.x, loadedState.cloverPos.y);
+        entityList.add(clover);
+
         for (Vector2 coinPos : loadedState.coinsPos) {
             Entity coin = new Entity("Coin");
             LevelParser.CoinPixel.addComponents(coin, coinPos.x, coinPos.y);
@@ -83,9 +91,11 @@ public class Memento implements Serializable {
         for (Entity entity : entityList) {
             Level.entities.add(entity);
         }
+        LevelParser.smoothGround();
         WorldController.cameraHandler.setTarget(Level.playerBounds);
         WorldController.cameraHandler.setPosition(0, 3);
         Globals.points = loadedState.score;
+        Globals.lives = loadedState.lifes;
         Gdx.app.log(TAG, "Level successfully loaded");
     }
 

@@ -1,5 +1,6 @@
 package com.gdx.game.Observer;
 
+import com.gdx.game.Constants;
 import com.gdx.game.GameScreens.GameOverScreen;
 import com.gdx.game.Globals;
 
@@ -12,8 +13,8 @@ public class DeathObserver implements Observer {
         if (Globals.lives == 0) {
 
             game.setScreen(new GameOverScreen(game));
-            //Globals.lives= Constants.LIVES_START;
-
+            Globals.lives = Constants.LIVES_START;
+            Globals.points = 0;
         }
     }
 }

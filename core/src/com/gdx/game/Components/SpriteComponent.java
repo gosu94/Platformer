@@ -8,6 +8,7 @@ public class SpriteComponent extends Component {
     public Animation<TextureRegion> animation;
     public Animation<TextureRegion> standingAnimation;
     public TextureRegion sprite;
+    public TextureRegion alterSprite;
     public float stateTime;
     public boolean hasAnimation;
     public boolean hasStandingAnimation;
@@ -41,4 +42,5 @@ public class SpriteComponent extends Component {
         this.hasAnimation = false;
         this.hasStandingAnimation = false;
     }
+
 }

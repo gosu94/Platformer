@@ -5,6 +5,8 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.gdx.game.Constants;
 import com.gdx.game.GameScreens.GameScreen;
 import com.gdx.game.GameScreens.MenuScreen;
+import com.gdx.game.Globals;
+import com.gdx.game.Memento.Originator;
 
 import static com.gdx.game.GameScreens.AbstractGameScreen.game;
 
@@ -19,7 +21,7 @@ public class Buttons {
         @Override
         void listener() {
             game.setScreen(new GameScreen(game));
-            // Originator.loadFromMemento(WorldController.mementos.get(WorldController.mementos.size() - 1));
+            Originator.loadFromMemento(Globals.mementos.get(Globals.mementos.size() - 1));
         }
 
         @Override

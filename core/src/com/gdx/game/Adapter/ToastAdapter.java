@@ -2,6 +2,7 @@ package com.gdx.game.Adapter;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.gdx.game.Constants;
 import com.gdx.game.GameScreens.MenuScreen;
 
 import java.util.Iterator;
@@ -16,7 +17,7 @@ public class ToastAdapter implements ToastWindow {
     public ToastAdapter() {
         toastFactory = new Toast.ToastFactory.Builder()
                 .font(MenuScreen.font)
-                .positionY(520)
+                .positionY(Constants.VIEWPORT_GUI_HEIGHT - 5)
                 .build();
     }
 

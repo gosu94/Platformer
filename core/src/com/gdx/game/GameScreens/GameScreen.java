@@ -3,7 +3,11 @@ package com.gdx.game.GameScreens;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.gdx.game.*;
+import com.gdx.game.Constants;
+import com.gdx.game.Globals;
+import com.gdx.game.Memento.Originator;
+import com.gdx.game.WorldController;
+import com.gdx.game.WorldRenderer;
 
 public class GameScreen extends AbstractGameScreen {
 
@@ -18,9 +22,10 @@ public class GameScreen extends AbstractGameScreen {
 
     @Override
     public void render(float deltaTime) {
-        if (!paused) {
+        //float delta = Math.max(1/60f, deltaTime);
+        // if (!paused) {
             worldController.update(deltaTime);
-        }
+        //}
         // Sets the clear screen color to: Cornflower Blue
         Gdx.gl.glClearColor(174 / 255.0f, 222 / 255.0f, 203 / 255.0f, 255 / 255.0f);
         // Clears the screen
@@ -44,7 +49,8 @@ public class GameScreen extends AbstractGameScreen {
     @Override
     public void hide() {
         worldRenderer.dispose();
-        Originator.saveMementos(Globals.mementos);
+        if (Globals.mementos.size() > 0)
+            Originator.saveMementos(Globals.mementos);
         Gdx.input.setCatchBackKey(false);
     }
 

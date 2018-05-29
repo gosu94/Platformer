@@ -20,6 +20,7 @@ public class LevelParser {
         availablePixels.add(new PlayerPixel(PIXEL_TYPE.PLAYER_SPAWNPOINT));
         availablePixels.add(new CoinPixel(PIXEL_TYPE.ITEM_GOLD_COIN));
         availablePixels.add(new EnemyPixel(PIXEL_TYPE.ENEMY));
+        availablePixels.add(new CloverPixel(PIXEL_TYPE.ITEM_CLOVER));
 
         for (int pixelY = 0; pixelY < pixmap.getHeight(); pixelY++) {
 
@@ -33,11 +34,40 @@ public class LevelParser {
                         pixel.interpret(pixelX, baseHeight);
                 }
 
+            }
+        }
+
+        smoothGround();
+    }
+
+    public static void smoothGround() {
+
+        boolean isUnder = false;
+        for (Entity entity : Level.entities) {
+            if ("Rock".equals(entity.getName())) {
+                isUnder = false;
+                BoundsComponent bounds = (BoundsComponent) entity.getComponent("BoundsComponent");
+                Vector2 rockPos = bounds.position;
+                for (Entity entity2 : Level.entities) {
+                    if ("Rock".equals(entity2.getName())) {
+                        BoundsComponent bounds2 = (BoundsComponent) entity2.getComponent("BoundsComponent");
+                        Vector2 rockPos2 = bounds2.position;
+                        if (rockPos.y == rockPos2.y - 1 && rockPos.x == rockPos2.x) {
+                            isUnder = true;
+                            break;
+                        }
+                    }
+                }
+                if (isUnder) {
+                    SpriteComponent spriteComponent = (SpriteComponent) entity.getComponent("SpriteComponent");
+                    entity.removeComponent("SpriteComponent");
+                    entity.addComponent(new SpriteComponent(Assets.instance.rock.rockUnder));
+
+                }
 
             }
         }
     }
-
 
     public enum PIXEL_TYPE {
         EMPTY(255, 255, 255),
@@ -45,6 +75,7 @@ public class LevelParser {
         ROCK_UNDER(0, 240, 0),
         PLAYER_SPAWNPOINT(0, 0, 0),
         ITEM_GOLD_COIN(255, 255, 0),
+        ITEM_CLOVER(255, 0, 255),
         ENEMY(128, 128, 128);
 
         private int color;
@@ -80,6 +111,30 @@ public class LevelParser {
         public void interpret(int pixelX, float baseHeight) {
             float offsetHeight = -4f;
             Entity rock = new Entity("Rock");
+            addComponents(rock, pixelX, baseHeight + offsetHeight);
+            Level.entities.add(rock);
+        }
+
+    }
+
+    public static class CloverPixel extends PixelData {
+
+        public CloverPixel(PIXEL_TYPE blockType) {
+            super(blockType);
+        }
+
+        public static void addComponents(Entity entity, float x, float y) {
+            Vector2 position = new Vector2(x, y);
+
+            entity.addComponent(new BoundsComponent(position, 1, 1));
+            entity.addComponent(new SpriteComponent(Assets.instance.clover.clover));
+            entity.addComponent(new CollisionComponent());
+        }
+
+        @Override
+        public void interpret(int pixelX, float baseHeight) {
+            float offsetHeight = -4f;
+            Entity rock = new Entity("Clover");
             addComponents(rock, pixelX, baseHeight + offsetHeight);
             Level.entities.add(rock);
         }
@@ -154,7 +209,7 @@ public class LevelParser {
 
             entity.addComponent(new BoundsComponent(new Vector2(x, y), 1, 1));
             entity.addComponent(new VelocityComponent(velocity, maximalSpeed, friction, acceleration));
-            entity.addComponent(new SpriteComponent(Assets.instance.player.player));
+            entity.addComponent(new SpriteComponent(Assets.instance.enemy.animation));
             entity.addComponent(new CollisionComponent());
         }
 

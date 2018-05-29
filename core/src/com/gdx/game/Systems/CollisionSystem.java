@@ -6,11 +6,13 @@ import com.gdx.game.Components.JumpComponent;
 import com.gdx.game.Components.VelocityComponent;
 import com.gdx.game.Constants;
 import com.gdx.game.Entity.Entity;
+import com.gdx.game.GameScreens.FinishScreen;
 import com.gdx.game.Globals;
 import com.gdx.game.Observer.AchievmentObserver;
 import com.gdx.game.Observer.BonusesObserver;
 import com.gdx.game.Observer.DeathObserver;
 import com.gdx.game.Observer.Observer;
+import com.gdx.game.WorldController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +54,9 @@ public class CollisionSystem extends System {
                             if ("Coin".equals(entity2.getName()) && "Player".equals(entity.getName())) {
                                 collisionWithCoin(entity2);
                             }
+                            if ("Player".equals(entity2.getName()) && "Clover".equals(entity.getName())) {
+                                collisionWithClover();
+                            }
                             if ("Enemy".equals(entity2.getName()) && "Player".equals(entity.getName())) {
                                 collisionPlayerWithEnemy(entity, entity2);
                             }
@@ -62,6 +67,11 @@ public class CollisionSystem extends System {
 
             }
         }
+    }
+
+    private void collisionWithClover() {
+        WorldController.game.setScreen(new FinishScreen(WorldController.game));
+
     }
 
     private void collisionWithRock(Entity entity, Entity rock) {
@@ -109,6 +119,7 @@ public class CollisionSystem extends System {
 
     private void collisionPlayerWithEnemy(Entity player, Entity enemy) {
         BoundsComponent playerBounds = (BoundsComponent) getComponentOfEntity(player, "BoundsComponent");
+        VelocityComponent velocityComponent = (VelocityComponent) getComponentOfEntity(player, "VelocityComponent");
         BoundsComponent enemyBounds = (BoundsComponent) getComponentOfEntity(enemy, "BoundsComponent");
         JumpComponent playerJump = (JumpComponent) player.getComponent("JumpComponent");
 
@@ -122,6 +133,7 @@ public class CollisionSystem extends System {
         if (pY < eH - 0.1 && pH - 0.1 > eY) {
             if (pY < eH - 0.2) {
                 Globals.lives -= 1;
+
                 playerBounds.position.x = Globals.startingPoint.x;
                 playerBounds.position.y = Globals.startingPoint.y;
                 notifyAllObservers();

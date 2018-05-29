@@ -25,7 +25,7 @@ public class CameraHandler {
         //position.y = target.position.y + target.origin.y;
     }
 
-    void setPosition(float x, float y) {
+    public void setPosition(float x, float y) {
         this.position.set(x, y);
     }
 
@@ -49,11 +49,11 @@ public class CameraHandler {
         return target;
     }
 
-    void setTarget(BoundsComponent target) {
+    public void setTarget(BoundsComponent target) {
         this.target = target;
     }
 
-    boolean hasTarget() {
+    public boolean hasTarget() {
         return target != null;
     }
 

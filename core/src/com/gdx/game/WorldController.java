@@ -1,15 +1,13 @@
 package com.gdx.game;
 
 import com.badlogic.gdx.Game;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.gdx.game.Memento.State;
 
 
 public class WorldController {
     private static final String TAG = WorldController.class.getName();
-    public static List<Memento> mementos = new ArrayList<Memento>();
-    static CameraHandler cameraHandler;
+
+    public static CameraHandler cameraHandler;
     Level level;
     InputHandler inputHandler;
     static int score;
