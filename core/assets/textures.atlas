@@ -1,0 +1,317 @@
+
+textures.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Gold
+  rotate: false
+  xy: 2, 453
+  size: 428, 565
+  orig: 428, 565
+  offset: 0, 0
+  index: 4
+Gold
+  rotate: false
+  xy: 432, 454
+  size: 563, 564
+  orig: 563, 564
+  offset: 0, 0
+  index: 1
+item_gold_coin
+  rotate: false
+  xy: 432, 454
+  size: 563, 564
+  orig: 563, 564
+  offset: 0, 0
+  index: -1
+anim_player
+  rotate: false
+  xy: 856, 264
+  size: 120, 188
+  orig: 120, 188
+  offset: 0, 0
+  index: 2
+anim_player
+  rotate: false
+  xy: 856, 74
+  size: 120, 188
+  orig: 120, 188
+  offset: 0, 0
+  index: 3
+anim_player
+  rotate: false
+  xy: 734, 62
+  size: 120, 188
+  orig: 120, 188
+  offset: 0, 0
+  index: 4
+cloud
+  rotate: false
+  xy: 856, 2
+  size: 69, 70
+  orig: 69, 70
+  offset: 0, 0
+  index: -1
+player2
+  rotate: false
+  xy: 734, 252
+  size: 120, 200
+  orig: 120, 200
+  offset: 0, 0
+  index: -1
+stand
+  rotate: false
+  xy: 2, 236
+  size: 120, 215
+  orig: 120, 215
+  offset: 0, 0
+  index: 1
+stand
+  rotate: false
+  xy: 2, 19
+  size: 120, 215
+  orig: 120, 215
+  offset: 0, 0
+  index: 2
+stand
+  rotate: false
+  xy: 124, 236
+  size: 120, 215
+  orig: 120, 215
+  offset: 0, 0
+  index: 3
+stand
+  rotate: false
+  xy: 124, 19
+  size: 120, 215
+  orig: 120, 215
+  offset: 0, 0
+  index: 4
+stand
+  rotate: false
+  xy: 246, 236
+  size: 120, 215
+  orig: 120, 215
+  offset: 0, 0
+  index: 5
+stand
+  rotate: false
+  xy: 246, 19
+  size: 120, 215
+  orig: 120, 215
+  offset: 0, 0
+  index: 6
+stand
+  rotate: false
+  xy: 368, 236
+  size: 120, 215
+  orig: 120, 215
+  offset: 0, 0
+  index: 7
+stand
+  rotate: false
+  xy: 368, 19
+  size: 120, 215
+  orig: 120, 215
+  offset: 0, 0
+  index: 8
+stand
+  rotate: false
+  xy: 490, 237
+  size: 120, 215
+  orig: 120, 215
+  offset: 0, 0
+  index: 9
+stand
+  rotate: false
+  xy: 490, 20
+  size: 120, 215
+  orig: 120, 215
+  offset: 0, 0
+  index: 10
+stand
+  rotate: false
+  xy: 612, 237
+  size: 120, 215
+  orig: 120, 215
+  offset: 0, 0
+  index: 11
+stand
+  rotate: false
+  xy: 612, 20
+  size: 120, 215
+  orig: 120, 215
+  offset: 0, 0
+  index: 12
+
+textures2.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Gold
+  rotate: false
+  xy: 2, 382
+  size: 559, 564
+  orig: 559, 564
+  offset: 0, 0
+  index: 2
+Gold
+  rotate: false
+  xy: 563, 381
+  size: 428, 565
+  orig: 428, 565
+  offset: 0, 0
+  index: 8
+anim_player
+  rotate: false
+  xy: 2, 192
+  size: 120, 188
+  orig: 120, 188
+  offset: 0, 0
+  index: 5
+anim_player
+  rotate: false
+  xy: 2, 2
+  size: 120, 188
+  orig: 120, 188
+  offset: 0, 0
+  index: 6
+anim_player
+  rotate: false
+  xy: 124, 192
+  size: 120, 188
+  orig: 120, 188
+  offset: 0, 0
+  index: 7
+anim_player
+  rotate: false
+  xy: 124, 2
+  size: 120, 188
+  orig: 120, 188
+  offset: 0, 0
+  index: 8
+clover
+  rotate: false
+  xy: 246, 252
+  size: 116, 128
+  orig: 116, 128
+  offset: 0, 0
+  index: -1
+enemy
+  rotate: false
+  xy: 448, 280
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: 1
+enemy
+  rotate: false
+  xy: 246, 16
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: 2
+enemy
+  rotate: false
+  xy: 550, 279
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: 3
+enemy
+  rotate: false
+  xy: 652, 279
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: 4
+enemy
+  rotate: false
+  xy: 754, 279
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: 5
+enemy
+  rotate: false
+  xy: 856, 279
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: 6
+rock
+  rotate: false
+  xy: 246, 118
+  size: 86, 132
+  orig: 86, 132
+  offset: 0, 0
+  index: -1
+rockUnder
+  rotate: false
+  xy: 364, 248
+  size: 82, 132
+  orig: 82, 132
+  offset: 0, 0
+  index: -1
+
+textures3.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Gold
+  rotate: false
+  xy: 2, 2
+  size: 559, 564
+  orig: 559, 564
+  offset: 0, 0
+  index: 10
+Gold
+  rotate: false
+  xy: 563, 2
+  size: 262, 564
+  orig: 262, 564
+  offset: 0, 0
+  index: 5
+Gold
+  rotate: false
+  xy: 827, 2
+  size: 108, 564
+  orig: 108, 564
+  offset: 0, 0
+  index: 6
+
+textures4.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Gold
+  rotate: false
+  xy: 2, 2
+  size: 504, 564
+  orig: 504, 564
+  offset: 0, 0
+  index: 3
+Gold
+  rotate: false
+  xy: 508, 2
+  size: 503, 564
+  orig: 503, 564
+  offset: 0, 0
+  index: 9
+
+textures5.png
+size: 512,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Gold
+  rotate: false
+  xy: 2, 2
+  size: 262, 564
+  orig: 262, 564
+  offset: 0, 0
+  index: 7
