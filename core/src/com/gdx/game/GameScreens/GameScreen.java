@@ -14,7 +14,6 @@ public class GameScreen extends AbstractGameScreen {
     private static final String TAG = GameScreen.class.getName();
     private WorldController worldController;
     private WorldRenderer worldRenderer;
-    private boolean paused;
 
     public GameScreen(Game game) {
         super(game);
@@ -22,13 +21,9 @@ public class GameScreen extends AbstractGameScreen {
 
     @Override
     public void render(float deltaTime) {
-        //float delta = Math.max(1/60f, deltaTime);
-        // if (!paused) {
-            worldController.update(deltaTime);
-        //}
-        // Sets the clear screen color to: Cornflower Blue
+        float delta = Math.min(1 / 60f, deltaTime);
+        worldController.update(delta);
         Gdx.gl.glClearColor(174 / 255.0f, 222 / 255.0f, 203 / 255.0f, 255 / 255.0f);
-        // Clears the screen
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         worldRenderer.render();
     }
@@ -56,13 +51,10 @@ public class GameScreen extends AbstractGameScreen {
 
     @Override
     public void pause() {
-        //paused = true;
     }
 
     @Override
     public void resume() {
-        //super.resume();
-        // Only called on Android!
-        //paused = false;
+
     }
 }

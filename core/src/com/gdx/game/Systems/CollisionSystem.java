@@ -13,6 +13,7 @@ import com.gdx.game.Observer.BonusesObserver;
 import com.gdx.game.Observer.DeathObserver;
 import com.gdx.game.Observer.Observer;
 import com.gdx.game.WorldController;
+import com.gdx.game.WorldRenderer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +79,23 @@ public class CollisionSystem extends System {
         BoundsComponent bounds = (BoundsComponent) getComponentOfEntity(entity, "BoundsComponent");
         VelocityComponent velocity = (VelocityComponent) getComponentOfEntity(entity, "VelocityComponent");
         BoundsComponent rockBounds = (BoundsComponent) getComponentOfEntity(rock, "BoundsComponent");
+        JumpComponent jumpComponent = null;
+        if (entity.containsComponent("JumpComponent"))
+            jumpComponent = (JumpComponent) entity.getComponent("JumpComponent");
+
+        if ("Player".equals(entity.getName())) {
+            if (jumpComponent.jumpState == Constants.JUMP_STATE.JUMP_RISING) {
+                if (bounds.position.y + bounds.bounds.height >= rockBounds.position.y - 0.1
+                        && bounds.position.y + bounds.bounds.height < rockBounds.position.y + rockBounds.bounds.height - 0.8) {
+                    bounds.position.y = rockBounds.position.y - (bounds.bounds.height + 0.5f);
+                    //velocity.acceleration.y=0;
+                    velocity.velocity.y = -2;
+                    jumpComponent.jumpState = Constants.JUMP_STATE.JUMP_FALLING;
+                    jumpComponent.jumpKeyPressed = false;
+                    jumpComponent.timeJumping = 0;
+                }
+            }
+        }
 
         float heightDifference = Math.abs(bounds.position.y - (rockBounds.position.y + rockBounds.bounds.height));
         if (heightDifference > 0.25f) {
@@ -99,17 +117,20 @@ public class CollisionSystem extends System {
         }
 
         if ("Player".equals(entity.getName())) {
-            JumpComponent jumpComponent = (JumpComponent) entity.getComponent("JumpComponent");
+
+
             switch (jumpComponent.jumpState) {
                 case GROUNDED:
                     break;
                 case FALLING:
                 case JUMP_FALLING:
-                    bounds.position.y = rockBounds.position.y + bounds.bounds.height;
+                    bounds.position.y = rockBounds.position.y + rockBounds.bounds.height;
                     jumpComponent.jumpState = Constants.JUMP_STATE.GROUNDED;
                     break;
                 case JUMP_RISING:
-                    bounds.position.y = rockBounds.position.y + bounds.bounds.height;
+                    //bounds.position.y = rockBounds.position.y + rockBounds.bounds.height;
+                    //jumpComponent.jumpState = Constants.JUMP_STATE.JUMP_FALLING;
+                    bounds.position.y = rockBounds.position.y + rockBounds.bounds.height;
                     break;
             }
         } else {
@@ -131,11 +152,12 @@ public class CollisionSystem extends System {
 
 
         if (pY < eH - 0.1 && pH - 0.1 > eY) {
-            if (pY < eH - 0.2) {
+            if (pY < eH - 0.3) {
                 Globals.lives -= 1;
 
                 playerBounds.position.x = Globals.startingPoint.x;
                 playerBounds.position.y = Globals.startingPoint.y;
+                WorldRenderer.toast.toastShort("You have lost a life");
                 notifyAllObservers();
             } else {
                 enemy.removeComponent("CollisionComponent");

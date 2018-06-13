@@ -154,7 +154,7 @@ public class LevelParser {
             Vector2 acceleration = new Vector2(0, -25f);
             Globals.startingPoint = new Vector2(x, y);
             entity.addComponent(new VelocityComponent(velocity, maximalSpeed, friction, acceleration));
-            entity.addComponent(new BoundsComponent(new Vector2(x, y), 1, 1));
+            entity.addComponent(new BoundsComponent(new Vector2(x, y), 1, 1.4f));
             entity.addComponent(new SpriteComponent(Assets.instance.player.runningAnimation, Assets.instance.player.standingAnimation));
             entity.addComponent(new CollisionComponent());
             entity.addComponent(new JumpComponent());
@@ -207,7 +207,7 @@ public class LevelParser {
             Vector2 friction = new Vector2();
             Vector2 acceleration = new Vector2(8, -25);
 
-            entity.addComponent(new BoundsComponent(new Vector2(x, y), 1, 1));
+            entity.addComponent(new BoundsComponent(new Vector2(x, y), 1.5f, 1.5f));
             entity.addComponent(new VelocityComponent(velocity, maximalSpeed, friction, acceleration));
             entity.addComponent(new SpriteComponent(Assets.instance.enemy.animation));
             entity.addComponent(new CollisionComponent());

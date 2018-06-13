@@ -1,7 +1,6 @@
 package com.gdx.game;
 
 import com.badlogic.gdx.Game;
-import com.gdx.game.Memento.State;
 
 
 public class WorldController {
@@ -12,7 +11,6 @@ public class WorldController {
     InputHandler inputHandler;
     static int score;
     int lives;
-    State state;
     public static Game game;
 
 
@@ -39,8 +37,6 @@ public class WorldController {
         inputHandler.handleDebugInput(deltaTime);
         InputHandler.handlePlayerInput(deltaTime, Level.playerEntity);
         level.update(deltaTime);
-        // collisionHandler.testCollisionsForPlayer();
-        //collisionHandler.testCollisionForEnemies();
         cameraHandler.update(deltaTime);
     }
 

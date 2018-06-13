@@ -21,14 +21,10 @@ public class InputHandler extends InputAdapter {
 
     public InputHandler(Game game) {
         Gdx.input.setInputProcessor(this);
-
         InputHandler.game = game;
-
     }
 
     static public void handlePlayerInput(float deltaTime, Entity player) {
-
-        // if (cameraHandler.hasTarget(Level.player)) {
 
         VelocityComponent velocityComponent = (VelocityComponent) player.getComponent("VelocityComponent");
         JumpComponent jumpComponent = (JumpComponent) player.getComponent("JumpComponent");

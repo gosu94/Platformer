@@ -5,13 +5,20 @@ import com.gdx.game.Components.BoundsComponent;
 import com.gdx.game.Components.VelocityComponent;
 import com.gdx.game.Constants;
 import com.gdx.game.Entity.Entity;
+import com.gdx.game.Globals;
+import com.gdx.game.Observer.DeathObserver;
+import com.gdx.game.Observer.Observer;
+import com.gdx.game.WorldRenderer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MovingSystem extends System {
-
+    private List<Observer> observers;
     public MovingSystem(List<Entity> entityList) {
         super(entityList);
+        observers = new ArrayList<>();
+        observers.add(new DeathObserver());
     }
 
     public void update(float deltaTime) {
@@ -30,8 +37,14 @@ public class MovingSystem extends System {
                             Constants.VIEW_DIRECTION.RIGHT;
                 }
                 if (boundsComponent.position.y < -4) {
-                    if ("Player".equals(entity.getName()))
-                        boundsComponent.position.y = 7;
+                    if ("Player".equals(entity.getName())) {
+                        Globals.lives -= 1;
+
+                        boundsComponent.position.x = Globals.startingPoint.x;
+                        boundsComponent.position.y = Globals.startingPoint.y;
+                        WorldRenderer.toast.toastShort("You have lost a life");
+                        notifyAllObservers();
+                    }
                     else
                         entity.reset();
                 }
@@ -50,10 +63,7 @@ public class MovingSystem extends System {
                         Math.min(velocityComponent.velocity.x + velocityComponent.friction.x * deltaTime, 0);
             }
         }
-        // Apply acceleration
         velocityComponent.velocity.x += velocityComponent.acceleration.x * deltaTime;
-        // Make sure the object's velocity does not exceed the
-        // positive or negative terminal velocity
         velocityComponent.velocity.x = MathUtils.clamp(velocityComponent.velocity.x,
                 -velocityComponent.maximalSpeed.x, velocityComponent.maximalSpeed.x);
     }
@@ -75,6 +85,11 @@ public class MovingSystem extends System {
         // positive or negative terminal velocity
         velocityComponent.velocity.y = MathUtils.clamp(velocityComponent.velocity.y, -
                 velocityComponent.maximalSpeed.y, velocityComponent.maximalSpeed.y);
+    }
+
+    private void notifyAllObservers() {
+        for (Observer observer : observers)
+            observer.update();
     }
 
 }
