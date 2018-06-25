@@ -3,12 +3,10 @@ package com.gdx.game.Menu;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
 
 public class Decorators {
@@ -96,18 +94,9 @@ public class Decorators {
     public static class FadeOut extends ButtonDecorator {
         public FadeOut(Button buttonToBeDecorated) {
             super(buttonToBeDecorated);
-            Action actionParaell;
-            Group group2 = new Group();
-            Array<Action> actions = buttonToBeDecorated.group.getActions();
-            System.out.println("Size = " + actions.size);
-            group.addActor(buttonToBeDecorated);
             group.addActor(this);
-            for (Action action : actions) {
-                System.out.println("Tu jest akcja: " + action);
-                group.addAction(Actions.parallel(action, new SequenceAction(Actions.fadeOut(3), Actions.fadeIn(3))));
-            }
+            group.addAction(Actions.forever(new SequenceAction(Actions.fadeOut(3), Actions.fadeIn(3))));
 
-            // group.addAction(Actions.forever(new SequenceAction(Actions.fadeOut(3), Actions.fadeIn(3))));
 
         }
     }
